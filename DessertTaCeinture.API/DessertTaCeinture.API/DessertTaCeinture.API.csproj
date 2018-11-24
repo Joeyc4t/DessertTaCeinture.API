@@ -183,6 +183,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -277,6 +278,16 @@
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.3.1.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DessertTaCeinture.DAL\DessertTaCeinture.DAL\DessertTaCeinture.DAL.csproj">
+      <Project>{96DEDAFD-FB3B-427E-B53D-1EA002C984C8}</Project>
+      <Name>DessertTaCeinture.DAL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Tools.Generic\Tools.Generic\Tools.Generic.csproj">
+      <Project>{E709F84C-F1DC-4520-9132-CDF6AC4D6E20}</Project>
+      <Name>Tools.Generic</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
