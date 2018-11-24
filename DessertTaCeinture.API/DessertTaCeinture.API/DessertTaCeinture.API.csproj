@@ -190,6 +190,7 @@
     <Compile Include="Controllers\PictureController.cs" />
     <Compile Include="Controllers\RateController.cs" />
     <Compile Include="Controllers\RatingController.cs" />
+    <Compile Include="Controllers\Recipe_IngredientsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Global.asax.cs">

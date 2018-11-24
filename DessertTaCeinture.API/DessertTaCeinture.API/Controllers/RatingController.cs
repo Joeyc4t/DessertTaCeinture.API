@@ -28,9 +28,10 @@ namespace DessertTaCeinture.API.Controllers
         }
 
         [HttpPut]
-        public bool Put(RatingEntity entity)
+        public bool Put(int id, RatingEntity entity)
         {
-            return (UOW.RatingRepository.UpdateEntity(entity));
+            if (id.Equals(entity.ConcatId)) return (UOW.RatingRepository.UpdateEntity(entity));
+            else return false;
         }
 
         [HttpDelete]
