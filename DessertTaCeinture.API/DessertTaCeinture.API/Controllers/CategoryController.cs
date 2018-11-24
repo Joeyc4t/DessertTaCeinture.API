@@ -1,7 +1,10 @@
-﻿
+﻿using DessertTaCeinture.API.Models;
+using DessertTaCeinture.API.Tools;
 using DessertTaCeinture.DAL.Entities;
 using DessertTaCeinture.DAL.UnitOfWork;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 
 namespace DessertTaCeinture.API.Controllers
@@ -11,34 +14,96 @@ namespace DessertTaCeinture.API.Controllers
         private readonly UnitOfWork UOW = new UnitOfWork();
 
         [HttpGet]
-        public IEnumerable<CategoryEntity> Get()
+        public IQueryable<CategoryModel> Get()
         {
-            return UOW.CategoryRepository.GetEntities();
+            List<CategoryModel> Models = new List<CategoryModel>();
+
+            foreach(var entity in UOW.CategoryRepository.GetEntities())
+            {
+                Models.Add(AutoMapper<CategoryEntity, CategoryModel>.AutoMap(entity));
+            }
+
+            return Models.AsQueryable() ;
         }
 
         [HttpGet]
-        public CategoryEntity Get(int id)
+        public IHttpActionResult Get(int id)
         {
-            return UOW.CategoryRepository.GetEntity(id);
+            if (id <= 0)
+                return BadRequest();
+
+            if (!UOW.CategoryRepository.GetEntities().ToList().Exists(e => e.Id == id))
+                return NotFound();
+
+            try
+            {
+                return Ok(AutoMapper<CategoryEntity, CategoryModel>.AutoMap(UOW.CategoryRepository.GetEntity(id)));
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
-        public bool Post(CategoryEntity entity)
+        public IHttpActionResult Post(CategoryModel model)
         {
-            return (UOW.CategoryRepository.AddEntity(entity));
+            if (model == null)
+                return BadRequest("Invalid model");
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                UOW.CategoryRepository.AddEntity(AutoMapper<CategoryModel, CategoryEntity>.AutoMap(model));
+
+                return Ok(model);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
-        public bool Put(int id, CategoryEntity entity)
+        public IHttpActionResult Put(int id, CategoryModel model)
         {
-            if (id.Equals(entity.Id)) return (UOW.CategoryRepository.UpdateEntity(entity));
-            else return false;
+            if (model == null || !id.Equals(model.Id))
+                return BadRequest("Invalid model");
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                UOW.CategoryRepository.UpdateEntity(AutoMapper<CategoryModel, CategoryEntity>.AutoMap(model));
+
+                return Ok(model);
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
-        public bool Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
-            return (UOW.CategoryRepository.DeleteEntity(id));
+            if (id <= 0)
+                return BadRequest();
+
+            if (!UOW.CategoryRepository.GetEntities().ToList().Exists(e => e.Id == id))
+                return NotFound();
+
+            try
+            {
+                return Ok(UOW.CategoryRepository.DeleteEntity(id));
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

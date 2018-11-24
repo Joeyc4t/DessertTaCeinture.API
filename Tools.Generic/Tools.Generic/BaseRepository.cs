@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
+using System.Linq;
 
 namespace Tools.Generic
 {
@@ -45,11 +46,11 @@ namespace Tools.Generic
             return GetOne(builder.GetSelectOneCommand(entitykey));
         }
 
-        public IEnumerable<TEntity> GetEntities()
+        public IQueryable<TEntity> GetEntities()
         {
             TEntity instance = Activator.CreateInstance<TEntity>();
             var builder = new QueryBuilder<TEntity>(instance);
-            return GetAll(builder.GetSelectAllCommand());
+            return GetAll(builder.GetSelectAllCommand()).AsQueryable();
         }
         #endregion
 

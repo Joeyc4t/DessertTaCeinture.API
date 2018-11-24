@@ -1,43 +1,109 @@
-﻿using DessertTaCeinture.DAL.Entities;
+﻿using DessertTaCeinture.API.Models;
+using DessertTaCeinture.API.Tools;
+using DessertTaCeinture.DAL.Entities;
 using DessertTaCeinture.DAL.UnitOfWork;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 
 namespace DessertTaCeinture.API.Controllers
 {
     public class UserController : ApiController
     {
-        private readonly UnitOfWork UOW = new UnitOfWork(); 
+        private readonly UnitOfWork UOW = new UnitOfWork();
 
         [HttpGet]
-        public IEnumerable<UserEntity> Get()
+        public IQueryable<UserModel> Get()
         {
-            return UOW.UserRepository.GetEntities();
+            List<UserModel> Models = new List<UserModel>();
+
+            foreach (var entity in UOW.UserRepository.GetEntities())
+            {
+                Models.Add(AutoMapper<UserEntity, UserModel>.AutoMap(entity));
+            }
+
+            return Models.AsQueryable();
         }
 
         [HttpGet]
-        public UserEntity Get(int id)
+        public IHttpActionResult Get(int id)
         {
-            return UOW.UserRepository.GetEntity(id);
+            if (id <= 0)
+                return BadRequest();
+
+            if (!UOW.UserRepository.GetEntities().ToList().Exists(e => e.Id == id))
+                return NotFound();
+
+            try
+            {
+                return Ok(AutoMapper<UserEntity, UserModel>.AutoMap(UOW.UserRepository.GetEntity(id)));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
-        public bool Post(UserEntity entity)
+        public IHttpActionResult Post(UserModel model)
         {
-            return (UOW.UserRepository.AddEntity(entity));
+            if (model == null)
+                return BadRequest("Invalid model");
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                UOW.UserRepository.AddEntity(AutoMapper<UserModel, UserEntity>.AutoMap(model));
+
+                return Ok(model);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
-        public bool Put(int id, UserEntity entity)
+        public IHttpActionResult Put(int id, UserModel model)
         {
-            if (id.Equals(entity.Id)) return (UOW.UserRepository.UpdateEntity(entity));
-            else return false;
+            if (model == null || !id.Equals(model.Id))
+                return BadRequest("Invalid model");
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                UOW.UserRepository.UpdateEntity(AutoMapper<UserModel, UserEntity>.AutoMap(model));
+
+                return Ok(model);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
-        public bool Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
-            return (UOW.UserRepository.DeleteEntity(id));
+            if (id <= 0)
+                return BadRequest();
+
+            if (!UOW.UserRepository.GetEntities().ToList().Exists(e => e.Id == id))
+                return NotFound();
+
+            try
+            {
+                return Ok(UOW.UserRepository.DeleteEntity(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

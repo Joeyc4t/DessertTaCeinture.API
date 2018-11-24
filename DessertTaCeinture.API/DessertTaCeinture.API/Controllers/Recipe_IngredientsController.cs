@@ -1,6 +1,10 @@
-﻿using DessertTaCeinture.DAL.Entities;
+﻿using DessertTaCeinture.API.Models;
+using DessertTaCeinture.API.Tools;
+using DessertTaCeinture.DAL.Entities;
 using DessertTaCeinture.DAL.UnitOfWork;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 
 namespace DessertTaCeinture.API.Controllers
@@ -10,34 +14,96 @@ namespace DessertTaCeinture.API.Controllers
         private readonly UnitOfWork UOW = new UnitOfWork();
 
         [HttpGet]
-        public IEnumerable<Recipe_IngredientsEntity> Get()
+        public IQueryable<Recipe_IngredientsModel> Get()
         {
-            return UOW.Recipe_IngredientsRepository.GetEntities();
+            List<Recipe_IngredientsModel> Models = new List<Recipe_IngredientsModel>();
+
+            foreach (var entity in UOW.Recipe_IngredientsRepository.GetEntities())
+            {
+                Models.Add(AutoMapper<Recipe_IngredientsEntity, Recipe_IngredientsModel>.AutoMap(entity));
+            }
+
+            return Models.AsQueryable();
         }
 
         [HttpGet]
-        public Recipe_IngredientsEntity Get(int id)
+        public IHttpActionResult Get(int id)
         {
-            return UOW.Recipe_IngredientsRepository.GetEntity(id);
+            if (id <= 0)
+                return BadRequest();
+
+            if (!UOW.Recipe_IngredientsRepository.GetEntities().ToList().Exists(e => e.ConcatId == id))
+                return NotFound();
+
+            try
+            {
+                return Ok(AutoMapper<Recipe_IngredientsEntity, Recipe_IngredientsModel>.AutoMap(UOW.Recipe_IngredientsRepository.GetEntity(id)));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
-        public bool Post(Recipe_IngredientsEntity entity)
+        public IHttpActionResult Post(Recipe_IngredientsModel model)
         {
-            return (UOW.Recipe_IngredientsRepository.AddEntity(entity));
+            if (model == null)
+                return BadRequest("Invalid model");
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                UOW.Recipe_IngredientsRepository.AddEntity(AutoMapper<Recipe_IngredientsModel, Recipe_IngredientsEntity>.AutoMap(model));
+
+                return Ok(model);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
-        public bool Put(int id, Recipe_IngredientsEntity entity)
+        public IHttpActionResult Put(int id, Recipe_IngredientsModel model)
         {
-            if (id.Equals(entity.ConcatId)) return (UOW.Recipe_IngredientsRepository.UpdateEntity(entity));
-            else return false;
+            if (model == null || !id.Equals(model.ConcatId))
+                return BadRequest("Invalid model");
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                UOW.Recipe_IngredientsRepository.UpdateEntity(AutoMapper<Recipe_IngredientsModel, Recipe_IngredientsEntity>.AutoMap(model));
+
+                return Ok(model);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
-        public bool Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
-            return (UOW.Recipe_IngredientsRepository.DeleteEntity(id));
+            if (id <= 0)
+                return BadRequest();
+
+            if (!UOW.Recipe_IngredientsRepository.GetEntities().ToList().Exists(e => e.ConcatId == id))
+                return NotFound();
+
+            try
+            {
+                return Ok(UOW.Recipe_IngredientsRepository.DeleteEntity(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

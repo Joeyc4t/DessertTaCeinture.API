@@ -1,6 +1,10 @@
-﻿using DessertTaCeinture.DAL.Entities;
+﻿using DessertTaCeinture.API.Models;
+using DessertTaCeinture.API.Tools;
+using DessertTaCeinture.DAL.Entities;
 using DessertTaCeinture.DAL.UnitOfWork;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 
 namespace DessertTaCeinture.API.Controllers
@@ -10,34 +14,96 @@ namespace DessertTaCeinture.API.Controllers
         private readonly UnitOfWork UOW = new UnitOfWork();
 
         [HttpGet]
-        public IEnumerable<OriginEntity> Get()
+        public IQueryable<OriginModel> Get()
         {
-            return UOW.OriginRepository.GetEntities();
+            List<OriginModel> Models = new List<OriginModel>();
+
+            foreach (var entity in UOW.OriginRepository.GetEntities())
+            {
+                Models.Add(AutoMapper<OriginEntity, OriginModel>.AutoMap(entity));
+            }
+
+            return Models.AsQueryable();
         }
 
         [HttpGet]
-        public OriginEntity Get(int id)
+        public IHttpActionResult Get(int id)
         {
-            return UOW.OriginRepository.GetEntity(id);
+            if (id <= 0)
+                return BadRequest();
+
+            if (!UOW.OriginRepository.GetEntities().ToList().Exists(e => e.Id == id))
+                return NotFound();
+
+            try
+            {
+                return Ok(AutoMapper<OriginEntity, OriginModel>.AutoMap(UOW.OriginRepository.GetEntity(id)));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
-        public bool Post(OriginEntity entity)
+        public IHttpActionResult Post(OriginModel model)
         {
-            return (UOW.OriginRepository.AddEntity(entity));
+            if (model == null)
+                return BadRequest("Invalid model");
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                UOW.OriginRepository.AddEntity(AutoMapper<OriginModel, OriginEntity>.AutoMap(model));
+
+                return Ok(model);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
-        public bool Put(int id, OriginEntity entity)
+        public IHttpActionResult Put(int id, OriginModel model)
         {
-            if (id.Equals(entity.Id)) return (UOW.OriginRepository.UpdateEntity(entity));
-            else return false;
+            if (model == null || !id.Equals(model.Id))
+                return BadRequest("Invalid model");
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                UOW.OriginRepository.UpdateEntity(AutoMapper<OriginModel, OriginEntity>.AutoMap(model));
+
+                return Ok(model);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
-        public bool Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
-            return (UOW.OriginRepository.DeleteEntity(id));
+            if (id <= 0)
+                return BadRequest();
+
+            if (!UOW.OriginRepository.GetEntities().ToList().Exists(e => e.Id == id))
+                return NotFound();
+
+            try
+            {
+                return Ok(UOW.OriginRepository.DeleteEntity(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

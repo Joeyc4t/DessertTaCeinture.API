@@ -1,6 +1,10 @@
-﻿using DessertTaCeinture.DAL.Entities;
+﻿using DessertTaCeinture.API.Models;
+using DessertTaCeinture.API.Tools;
+using DessertTaCeinture.DAL.Entities;
 using DessertTaCeinture.DAL.UnitOfWork;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 
 namespace DessertTaCeinture.API.Controllers
@@ -10,34 +14,96 @@ namespace DessertTaCeinture.API.Controllers
         private readonly UnitOfWork UOW = new UnitOfWork();
 
         [HttpGet]
-        public IEnumerable<RoleEntity> Get()
+        public IQueryable<RoleModel> Get()
         {
-            return UOW.RoleRepository.GetEntities();
+            List<RoleModel> Models = new List<RoleModel>();
+
+            foreach (var entity in UOW.RoleRepository.GetEntities())
+            {
+                Models.Add(AutoMapper<RoleEntity, RoleModel>.AutoMap(entity));
+            }
+
+            return Models.AsQueryable();
         }
 
         [HttpGet]
-        public RoleEntity Get(int id)
+        public IHttpActionResult Get(int id)
         {
-            return UOW.RoleRepository.GetEntity(id);
+            if (id <= 0)
+                return BadRequest();
+
+            if (!UOW.RoleRepository.GetEntities().ToList().Exists(e => e.Id == id))
+                return NotFound();
+
+            try
+            {
+                return Ok(AutoMapper<RoleEntity, RoleModel>.AutoMap(UOW.RoleRepository.GetEntity(id)));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
-        public bool Post(RoleEntity entity)
+        public IHttpActionResult Post(RoleModel model)
         {
-            return (UOW.RoleRepository.AddEntity(entity));
+            if (model == null)
+                return BadRequest("Invalid model");
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                UOW.RoleRepository.AddEntity(AutoMapper<RoleModel, RoleEntity>.AutoMap(model));
+
+                return Ok(model);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
-        public bool Put(int id, RoleEntity entity)
+        public IHttpActionResult Put(int id, RoleModel model)
         {
-            if (id.Equals(entity.Id)) return (UOW.RoleRepository.UpdateEntity(entity));
-            else return false;
+            if (model == null || !id.Equals(model.Id))
+                return BadRequest("Invalid model");
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                UOW.RoleRepository.UpdateEntity(AutoMapper<RoleModel, RoleEntity>.AutoMap(model));
+
+                return Ok(model);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
-        public bool Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
-            return (UOW.RoleRepository.DeleteEntity(id));
+            if (id <= 0)
+                return BadRequest();
+
+            if (!UOW.RoleRepository.GetEntities().ToList().Exists(e => e.Id == id))
+                return NotFound();
+
+            try
+            {
+                return Ok(UOW.RoleRepository.DeleteEntity(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

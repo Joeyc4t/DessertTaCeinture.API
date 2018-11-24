@@ -1,6 +1,10 @@
-﻿using DessertTaCeinture.DAL.Entities;
+﻿using DessertTaCeinture.API.Models;
+using DessertTaCeinture.API.Tools;
+using DessertTaCeinture.DAL.Entities;
 using DessertTaCeinture.DAL.UnitOfWork;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.Http;
 
 namespace DessertTaCeinture.API.Controllers
@@ -10,34 +14,96 @@ namespace DessertTaCeinture.API.Controllers
         private readonly UnitOfWork UOW = new UnitOfWork();
 
         [HttpGet]
-        public IEnumerable<IngredientEntity> Get()
+        public IQueryable<IngredientModel> Get()
         {
-            return UOW.IngredientRepository.GetEntities();
+            List<IngredientModel> Models = new List<IngredientModel>();
+
+            foreach (var entity in UOW.IngredientRepository.GetEntities())
+            {
+                Models.Add(AutoMapper<IngredientEntity, IngredientModel>.AutoMap(entity));
+            }
+
+            return Models.AsQueryable();
         }
 
         [HttpGet]
-        public IngredientEntity Get(int id)
+        public IHttpActionResult Get(int id)
         {
-            return UOW.IngredientRepository.GetEntity(id);
+            if (id <= 0)
+                return BadRequest();
+
+            if (!UOW.IngredientRepository.GetEntities().ToList().Exists(e => e.Id == id))
+                return NotFound();
+
+            try
+            {
+                return Ok(AutoMapper<IngredientEntity, IngredientModel>.AutoMap(UOW.IngredientRepository.GetEntity(id)));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]
-        public bool Post(IngredientEntity entity)
+        public IHttpActionResult Post(IngredientModel model)
         {
-            return (UOW.IngredientRepository.AddEntity(entity));
+            if (model == null)
+                return BadRequest("Invalid model");
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                UOW.IngredientRepository.AddEntity(AutoMapper<IngredientModel, IngredientEntity>.AutoMap(model));
+
+                return Ok(model);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPut]
-        public bool Put(int id, IngredientEntity entity)
+        public IHttpActionResult Put(int id, IngredientModel model)
         {
-            if (id.Equals(entity.Id)) return (UOW.IngredientRepository.UpdateEntity(entity));
-            else return false;
+            if (model == null || !id.Equals(model.Id))
+                return BadRequest("Invalid model");
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
+            {
+                UOW.IngredientRepository.UpdateEntity(AutoMapper<IngredientModel, IngredientEntity>.AutoMap(model));
+
+                return Ok(model);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpDelete]
-        public bool Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
-            return (UOW.IngredientRepository.DeleteEntity(id));
+            if (id <= 0)
+                return BadRequest();
+
+            if (!UOW.IngredientRepository.GetEntities().ToList().Exists(e => e.Id == id))
+                return NotFound();
+
+            try
+            {
+                return Ok(UOW.IngredientRepository.DeleteEntity(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
