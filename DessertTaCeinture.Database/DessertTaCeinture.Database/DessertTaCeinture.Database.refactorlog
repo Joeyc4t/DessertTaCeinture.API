@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Operations Version="1.0" xmlns="http://schemas.microsoft.com/sqlserver/dac/Serialization/2012/02">
+  <Operation Name="Rename Refactor" Key="82197500-3433-4059-93a2-557460a369d5" ChangeDateTime="10/07/2018 13:04:37">
+    <Property Name="ElementName" Value="[dbo].[Recipe_Ingredients].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Recipe_Ingredients]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="RecipeId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="4e810937-9c1b-4532-8e91-de60f599b3e5" ChangeDateTime="10/07/2018 13:07:19">
+    <Property Name="ElementName" Value="[dbo].[CK_Recipe_Ingredients_Quanitty]" />
+    <Property Name="ElementType" Value="SqlCheckConstraint" />
+    <Property Name="ParentElementName" Value="[dbo].[Recipe_Ingredients]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="[CK_Recipe_Ingredients_Quantity]" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="8c09f548-fc13-4218-ba39-5413ca53090f" ChangeDateTime="10/07/2018 13:16:48">
+    <Property Name="ElementName" Value="[dbo].[Rating].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Rating]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="UserId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="29df2ca9-c402-418a-967c-21d5fd8ae2c8" ChangeDateTime="10/07/2018 13:26:34">
+    <Property Name="ElementName" Value="[dbo].[Recipe].[Origin]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Recipe]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="OriginId" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="8f20263f-409b-4483-8e03-37a7c8a47ed9" ChangeDateTime="10/07/2018 13:35:39">
+    <Property Name="ElementName" Value="[dbo].[Role].[LevelA]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Role]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="LevelAccess" />
+  </Operation>
+</Operations>

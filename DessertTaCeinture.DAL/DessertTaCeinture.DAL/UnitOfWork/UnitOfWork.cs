@@ -1,0 +1,132 @@
+﻿using System;
+using DessertTaCeinture.DAL.Entities;
+using DessertTaCeinture.DAL.Repositories;
+using Tools.Generic;
+
+namespace DessertTaCeinture.DAL.UnitOfWork
+{
+    public class UnitOfWork : IUnitOfWork
+    {
+        #region Fields
+        private IRepository<CategoryEntity> _CategoryRepository;
+        private IRepository<IngredientEntity> _IngredientRepository;
+        private IRepository<OriginEntity> _OriginRepository;
+        private IRepository<PictureEntity> _PictureRepository;
+        private IRepository<RateEntity> _RateRepository;
+        private IRepository<RatingEntity> _RatingRepository;
+        private IRepository<Recipe_IngredientsEntity> _Recipe_IngredientsRepository;
+        private IRepository<RecipeEntity> _RecipeRepository;
+        private IRepository<RoleEntity> _RoleRepository;
+        private IRepository<ThemeEntity> _ThemeRepository;
+        private IRepository<UserEntity> _UserRepository;
+        #endregion
+
+        #region Properties
+        public IRepository<CategoryEntity> CategoryRepository
+        {
+            get
+            {
+                if (this._CategoryRepository == null) { this._CategoryRepository = new CategoryRepository(); }
+                return this._CategoryRepository;
+            }
+        }
+
+        public IRepository<IngredientEntity> IngredientRepository
+        {
+            get
+            {
+                if (this._IngredientRepository == null) { this._IngredientRepository = new IngredientRepository(); }
+                return this._IngredientRepository;
+            }
+        }
+
+        public IRepository<OriginEntity> OriginRepository
+        {
+            get
+            {
+                if (this._OriginRepository == null) { this._OriginRepository = new OriginRepository(); }
+                return this._OriginRepository;
+            }
+        }
+
+        public IRepository<PictureEntity> PictureRepository
+        {
+            get
+            {
+                if (this._PictureRepository == null) { this._PictureRepository = new PictureRepository(); }
+                return this._PictureRepository;
+            }
+        }
+
+        public IRepository<RateEntity> RateRepository
+        {
+            get
+            {
+                if (this._RateRepository == null) { this._RateRepository = new RateRepository(); }
+                return this._RateRepository;
+            }
+        }
+
+        public IRepository<RatingEntity> RatingRepository
+        {
+            get
+            {
+                if (this._RatingRepository == null) { this._RatingRepository = new RatingRepository(); }
+                return this._RatingRepository;
+            }
+        }
+
+        public IRepository<Recipe_IngredientsEntity> Recipe_IngredientsRepository
+        {
+            get
+            {
+                if (this._Recipe_IngredientsRepository == null) { this._Recipe_IngredientsRepository = new Recipe_IngredientsRepository(); }
+                return this._Recipe_IngredientsRepository;
+            }
+        }
+
+        public IRepository<RecipeEntity> RecipeRepository
+        {
+            get
+            {
+                if (this._RecipeRepository == null) { this._RecipeRepository = new RecipeRepository(); }
+                return this._RecipeRepository;
+            }
+        }
+        
+        public IRepository<RoleEntity> RoleRepository
+        {
+            get
+            {
+                if (this._RoleRepository == null) { this._RoleRepository = new RoleRepository(); }
+                return this._RoleRepository;
+            }
+        }
+
+        public IRepository<ThemeEntity> ThemeRepository
+        {
+            get
+            {
+                if (this._ThemeRepository == null) { this._ThemeRepository = new ThemeRepository(); }
+                return this._ThemeRepository;
+            }
+        }
+
+        public IRepository<UserEntity> UserRepository
+        {
+            get
+            {
+                if (this._UserRepository == null) { this._UserRepository = new UserRepository(); }
+                return this._UserRepository;
+            }
+        }
+        #endregion
+
+        #region Methods
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+    }
+}
