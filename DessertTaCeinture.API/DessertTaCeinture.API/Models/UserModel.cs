@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace DessertTaCeinture.API.Models
 {
@@ -6,6 +7,7 @@ namespace DessertTaCeinture.API.Models
     {
         #region Fields
         private int _Id;
+        private string _Email;
         private string _Password;
         private string _Salt;
         private string _LastName;
@@ -18,6 +20,7 @@ namespace DessertTaCeinture.API.Models
         #endregion
 
         #region Properties
+        [Key]
         public int Id
         {
             get
@@ -30,6 +33,21 @@ namespace DessertTaCeinture.API.Models
             }
         }
 
+        [Required]
+        [StringLength(50)]
+        public string Email
+        {
+            get
+            {
+                return _Email;
+            }
+            set
+            {
+                _Email = value;
+            }
+        }
+
+        [Required]
         public string Password
         {
             get
@@ -42,6 +60,8 @@ namespace DessertTaCeinture.API.Models
             }
         }
 
+        [Required]
+        [StringLength(90)]
         public string Salt
         {
             get
@@ -54,6 +74,8 @@ namespace DessertTaCeinture.API.Models
             }
         }
 
+        [Required]
+        [StringLength(50)]
         public string LastName
         {
             get
@@ -66,6 +88,8 @@ namespace DessertTaCeinture.API.Models
             }
         }
 
+        [Required]
+        [StringLength(50)]
         public string FirstName
         {
             get
@@ -102,6 +126,7 @@ namespace DessertTaCeinture.API.Models
             }
         }
 
+        [Required]
         public DateTime InscriptionDate
         {
             get
@@ -114,6 +139,7 @@ namespace DessertTaCeinture.API.Models
             }
         }
 
+        [Required]
         public bool IsActive
         {
             get
@@ -126,6 +152,7 @@ namespace DessertTaCeinture.API.Models
             }
         }
 
+        [Required]
         public int RoleId
         {
             get

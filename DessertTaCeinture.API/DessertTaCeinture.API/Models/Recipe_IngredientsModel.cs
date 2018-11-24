@@ -1,5 +1,6 @@
 ﻿using DessertTaCeinture.DAL.Enumerations;
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace DessertTaCeinture.API.Models
 {
@@ -14,6 +15,7 @@ namespace DessertTaCeinture.API.Models
         #endregion
 
         #region Properties
+        [Key]
         public int ConcatId
         {
             get
@@ -26,6 +28,7 @@ namespace DessertTaCeinture.API.Models
             }
         }
 
+        [Required]
         public int RecipeId
         {
             get
@@ -38,6 +41,7 @@ namespace DessertTaCeinture.API.Models
             }
         }
 
+        [Required]
         public int IngredientId
         {
             get
@@ -49,7 +53,9 @@ namespace DessertTaCeinture.API.Models
                 _IngredientId = value;
             }
         }
-
+        
+        [Required]
+        [Range(0,9999)]
         public int Quantity
         {
             get
@@ -62,6 +68,8 @@ namespace DessertTaCeinture.API.Models
             }
         }
 
+        [Required]
+        [StringLength(20)]
         public EUnits Unit
         {
             get

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -20,6 +21,7 @@ namespace DessertTaCeinture.API.Models
         #endregion
 
         #region Properties
+        [Key]
         public int Id
         {
             get
@@ -32,6 +34,8 @@ namespace DessertTaCeinture.API.Models
             }
         }
 
+        [Required]
+        [StringLength(75)]
         public string Title
         {
             get
@@ -44,6 +48,7 @@ namespace DessertTaCeinture.API.Models
             }
         }
 
+        [Required]
         public DateTime CreationDate
         {
             get
@@ -55,7 +60,7 @@ namespace DessertTaCeinture.API.Models
                 _CreationDate = value;
             }
         }
-
+                
         public int OriginId
         {
             get
@@ -68,6 +73,7 @@ namespace DessertTaCeinture.API.Models
             }
         }
 
+        [Required]
         public int CreatorId
         {
             get
@@ -80,6 +86,7 @@ namespace DessertTaCeinture.API.Models
             }
         }
 
+        [Required]
         public int CategoryId
         {
             get
@@ -92,6 +99,7 @@ namespace DessertTaCeinture.API.Models
             }
         }
 
+        [Required]
         public int PictureId
         {
             get
@@ -104,6 +112,7 @@ namespace DessertTaCeinture.API.Models
             }
         }
 
+        [Required]
         public int ThemeId
         {
             get
@@ -116,6 +125,7 @@ namespace DessertTaCeinture.API.Models
             }
         }
 
+        [Required]
         public bool IsPublic
         {
             get

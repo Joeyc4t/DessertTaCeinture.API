@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -14,6 +15,7 @@ namespace DessertTaCeinture.API.Models
         #endregion
 
         #region Properties
+        [Key]
         public int Id
         {
             get
@@ -26,6 +28,8 @@ namespace DessertTaCeinture.API.Models
             }
         }
 
+        [Required]
+        [StringLength(20)]
         public string Function
         {
             get
@@ -38,6 +42,8 @@ namespace DessertTaCeinture.API.Models
             }
         }
 
+        [Required]
+        [Range(0,5)]
         public int Level
         {
             get

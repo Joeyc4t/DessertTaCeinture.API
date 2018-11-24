@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace DessertTaCeinture.API.Models
 {
@@ -14,6 +15,7 @@ namespace DessertTaCeinture.API.Models
         #endregion
 
         #region Properties
+        [Key]
         public int ConcatId
         {
             get
@@ -26,6 +28,7 @@ namespace DessertTaCeinture.API.Models
             }
         }
 
+        [Required]
         public int UserId
         {
             get
@@ -38,6 +41,7 @@ namespace DessertTaCeinture.API.Models
             }
         }
 
+        [Required]
         public int RecipeId
         {
             get
@@ -50,6 +54,7 @@ namespace DessertTaCeinture.API.Models
             }
         }
 
+        [Required]
         public int RateId
         {
             get
@@ -62,6 +67,7 @@ namespace DessertTaCeinture.API.Models
             }
         }
 
+        [Required]
         public DateTime RatingDate
         {
             get

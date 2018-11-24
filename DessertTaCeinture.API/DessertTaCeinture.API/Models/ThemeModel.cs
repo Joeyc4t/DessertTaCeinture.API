@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -13,6 +14,7 @@ namespace DessertTaCeinture.API.Models
         #endregion
 
         #region Properties
+        [Key]
         public int Id
         {
             get
@@ -25,6 +27,8 @@ namespace DessertTaCeinture.API.Models
             }
         }
 
+        [Required]
+        [StringLength(50)]
         public string Name
         {
             get

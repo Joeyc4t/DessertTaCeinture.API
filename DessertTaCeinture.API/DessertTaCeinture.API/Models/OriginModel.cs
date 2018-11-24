@@ -1,4 +1,6 @@
-﻿namespace DessertTaCeinture.API.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DessertTaCeinture.API.Models
 {
     public class OriginModel
     {
@@ -8,6 +10,7 @@
         #endregion
 
         #region Properties
+        [Key]
         public int Id
         {
             get
@@ -20,6 +23,8 @@
             }
         }
 
+        [Required]
+        [StringLength(50)]
         public string Country
         {
             get

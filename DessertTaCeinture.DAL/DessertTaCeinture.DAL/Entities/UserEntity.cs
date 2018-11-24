@@ -9,6 +9,7 @@ namespace DessertTaCeinture.DAL.Entities
     {
         #region Fields
         private int _Id;
+        private string _Email;
         private string _Password;
         private string _Salt;
         private string _LastName;
@@ -31,6 +32,18 @@ namespace DessertTaCeinture.DAL.Entities
             set
             {
                 _Id = value;
+            }
+        }
+
+        public string Email
+        {
+            get
+            {
+                return _Email;
+            }
+            set
+            {
+                _Email = value;
             }
         }
 

@@ -1,4 +1,6 @@
-﻿namespace DessertTaCeinture.API.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace DessertTaCeinture.API.Models
 {
     public class RateModel
     {
@@ -8,6 +10,7 @@
         #endregion
 
         #region Properties
+        [Key]
         public int Id
         {
             get
@@ -20,6 +23,8 @@
             }
         }
 
+        [Required]
+        [Range(0, 5)]
         public int RateOnFive
         {
             get
