@@ -1,11 +1,8 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DessertTaCeinture.DAL.Entities
+namespace DessertTaCeinture.API.Models
 {
-    [Table("User")]
-    public class UserEntity
+    public class UserModel
     {
         #region Fields
         private int _Id;
@@ -21,7 +18,6 @@ namespace DessertTaCeinture.DAL.Entities
         #endregion
 
         #region Properties
-        [Key]
         public int Id
         {
             get

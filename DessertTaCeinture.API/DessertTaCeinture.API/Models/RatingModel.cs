@@ -1,11 +1,8 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace DessertTaCeinture.DAL.Entities
+namespace DessertTaCeinture.API.Models
 {
-    [Table("Rating")]
-    public class RatingEntity
+    public class RatingModel
     {
         #region Fields
         private int _ConcatId;
@@ -17,7 +14,6 @@ namespace DessertTaCeinture.DAL.Entities
         #endregion
 
         #region Properties
-        [Key]
         public int ConcatId
         {
             get

@@ -1,11 +1,11 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
-namespace DessertTaCeinture.DAL.Entities
+namespace DessertTaCeinture.API.Models
 {
-    [Table("Recipe")]
-    public class RecipeEntity
+    public class RecipeModel
     {
         #region Fields
         private int _Id;
@@ -20,7 +20,6 @@ namespace DessertTaCeinture.DAL.Entities
         #endregion
 
         #region Properties
-        [Key]
         public int Id
         {
             get

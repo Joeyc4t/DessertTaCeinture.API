@@ -1,19 +1,19 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
-namespace DessertTaCeinture.DAL.Entities
+namespace DessertTaCeinture.API.Models
 {
-    [Table("Role")]
-    public class RoleEntity
+    public class PictureModel
     {
         #region Fields
         private int _Id;
-        private string _Function;
-        private int _Level;
+        private string _Name;
+        private string _Path;
         #endregion
 
         #region Properties
-        [Key]
         public int Id
         {
             get
@@ -26,27 +26,27 @@ namespace DessertTaCeinture.DAL.Entities
             }
         }
 
-        public string Function
+        public string Name
         {
             get
             {
-                return _Function;
+                return _Name;
             }
             set
             {
-                _Function = value;
+                _Name = value;
             }
         }
 
-        public int Level
+        public string Path
         {
             get
             {
-                return _Level;
+                return _Path;
             }
             set
             {
-                _Level = value;
+                _Path = value;
             }
         }
         #endregion
