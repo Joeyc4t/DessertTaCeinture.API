@@ -32,7 +32,7 @@ namespace DessertTaCeinture.API.Controllers
             if (id <= 0)
                 return BadRequest();
 
-            if (!UOW.UserRepository.GetEntities().ToList().Exists(e => e.Id == id))
+            if (!EntityExists(id))
                 return NotFound();
 
             try
@@ -56,7 +56,11 @@ namespace DessertTaCeinture.API.Controllers
 
             try
             {
-                UOW.UserRepository.AddEntity(AutoMapper<UserModel, UserEntity>.AutoMap(model));
+                UserEntity entity = AutoMapper<UserModel, UserEntity>.AutoMap(model);
+                entity.Salt = BCrypt.Net.BCrypt.GenerateSalt();
+                entity.Password = BCrypt.Net.BCrypt.HashPassword(model.Password, entity.Salt);
+
+                UOW.UserRepository.AddEntity(entity);
 
                 return Ok(model);
             }
@@ -74,6 +78,9 @@ namespace DessertTaCeinture.API.Controllers
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
+
+            if (!EntityExists(id))
+                return NotFound();
 
             try
             {
@@ -93,7 +100,7 @@ namespace DessertTaCeinture.API.Controllers
             if (id <= 0)
                 return BadRequest();
 
-            if (!UOW.UserRepository.GetEntities().ToList().Exists(e => e.Id == id))
+            if (!EntityExists(id))
                 return NotFound();
 
             try
@@ -104,6 +111,11 @@ namespace DessertTaCeinture.API.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        private bool EntityExists(int id)
+        {
+            return UOW.UserRepository.GetEntities().Where(e => e.Id == id).Count() > 0;
         }
     }
 }

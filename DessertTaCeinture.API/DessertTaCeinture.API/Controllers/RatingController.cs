@@ -32,7 +32,7 @@ namespace DessertTaCeinture.API.Controllers
             if (id <= 0)
                 return BadRequest();
 
-            if (!UOW.RatingRepository.GetEntities().ToList().Exists(e => e.ConcatId == id))
+            if (!EntityExists(id))
                 return NotFound();
 
             try
@@ -93,7 +93,7 @@ namespace DessertTaCeinture.API.Controllers
             if (id <= 0)
                 return BadRequest();
 
-            if (!UOW.RatingRepository.GetEntities().ToList().Exists(e => e.ConcatId == id))
+            if (!EntityExists(id))
                 return NotFound();
 
             try
@@ -104,6 +104,11 @@ namespace DessertTaCeinture.API.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        private bool EntityExists(int id)
+        {
+            return UOW.RatingRepository.GetEntities().Where(e => e.ConcatId == id).Count() > 0;
         }
     }
 }

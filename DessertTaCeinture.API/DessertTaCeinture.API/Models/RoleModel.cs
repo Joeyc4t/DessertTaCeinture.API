@@ -43,7 +43,7 @@ namespace DessertTaCeinture.API.Models
         }
 
         [Required]
-        [Range(0,5)]
+        [Range(1,3)]
         public int Level
         {
             get

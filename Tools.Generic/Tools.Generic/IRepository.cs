@@ -1,10 +1,10 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
 
 namespace Tools.Generic
 {
     public interface IRepository<TEntity> where TEntity : class
     {
-        IQueryable<TEntity> GetEntities();
+        IEnumerable<TEntity> GetEntities();
         TEntity GetEntity(int entitykey);
         bool AddEntity(TEntity entity);
         bool UpdateEntity(TEntity entity);

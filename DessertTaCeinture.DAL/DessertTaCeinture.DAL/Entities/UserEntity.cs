@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace DessertTaCeinture.DAL.Entities
 {
-    [Table("User")]
+    [Table("[User]")]
     public class UserEntity
     {
         #region Fields

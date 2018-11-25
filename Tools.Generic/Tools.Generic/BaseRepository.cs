@@ -46,7 +46,7 @@ namespace Tools.Generic
             return GetOne(builder.GetSelectOneCommand(entitykey));
         }
 
-        public IQueryable<TEntity> GetEntities()
+        public IEnumerable<TEntity> GetEntities()
         {
             TEntity instance = Activator.CreateInstance<TEntity>();
             var builder = new QueryBuilder<TEntity>(instance);
