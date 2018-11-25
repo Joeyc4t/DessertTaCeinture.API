@@ -51,14 +51,23 @@ namespace DessertTaCeinture.API.Controllers
             if (model == null)
                 return BadRequest("Invalid model");
 
+            if (string.IsNullOrEmpty(model.Email))
+                ModelState.AddModelError("Email", "Required field");
+
+            if (string.IsNullOrEmpty(model.Password))
+                ModelState.AddModelError("Password", "Required field");
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             try
             {
                 UserEntity entity = AutoMapper<UserModel, UserEntity>.AutoMap(model);
-                entity.Salt = BCrypt.Net.BCrypt.GenerateSalt();
-                entity.Password = BCrypt.Net.BCrypt.HashPassword(model.Password, entity.Salt);
+                    entity.Salt = BCrypt.Net.BCrypt.GenerateSalt();
+                    entity.Password = BCrypt.Net.BCrypt.HashPassword(model.Password, entity.Salt);
+                    entity.InscriptionDate = DateTime.Now;
+                    entity.IsActive = true;
+                    entity.RoleId = 1;
 
                 UOW.UserRepository.AddEntity(entity);
 

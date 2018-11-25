@@ -19,7 +19,7 @@ namespace DessertTaCeinture.API.Tests.Controllers
 
             // Affirmer
             Assert.IsNotNull(result);
-            Assert.AreEqual("Home Page", result.ViewBag.Title);
+            Assert.AreEqual("DessertTaCeinture - API", result.ViewBag.Title);
         }
     }
 }
