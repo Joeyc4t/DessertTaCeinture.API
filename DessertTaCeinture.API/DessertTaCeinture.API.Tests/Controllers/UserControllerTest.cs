@@ -77,7 +77,6 @@ namespace DessertTaCeinture.API.Tests.Controllers
                 model.LastName = "Boeme";
                 model.FirstName = "Joey";
                 model.Gender = true;
-                model.BirthDate = Convert.ToDateTime("04-12-1992");
                 model.Email = "joey.boeme@live.fr";
                 model.Password = "test";
 

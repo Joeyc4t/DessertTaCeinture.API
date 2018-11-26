@@ -2,7 +2,7 @@
 (
 	[Id] INT NOT NULL IDENTITY(1,1), 
     [Title] VARCHAR(75) NOT NULL,
-    [CreationDate] DATETIME2 NOT NULL DEFAULT GETDATE(),  
+    [CreationDate] DATETIME2 NOT NULL ,  
     [OriginId] INT NULL, 
     [CreatorId] INT NOT NULL, 
     [CategoryId] INT NOT NULL, 

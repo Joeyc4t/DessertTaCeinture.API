@@ -3,7 +3,7 @@
 	[UserId] INT NOT NULL, 
     [RecipeId] INT NOT NULL, 
     [RateId] INT NOT NULL, 
-    [RatingDate] DATETIME2 NOT NULL DEFAULT GETDATE(), 
+    [RatingDate] DATETIME2 NOT NULL , 
     [Commentary] TEXT NULL, 
     CONSTRAINT [PK_Rating] PRIMARY KEY ([UserId], [RecipeId]), 
     CONSTRAINT [FK_Rating_ToUser] FOREIGN KEY ([UserId]) REFERENCES [User]([Id]), 
