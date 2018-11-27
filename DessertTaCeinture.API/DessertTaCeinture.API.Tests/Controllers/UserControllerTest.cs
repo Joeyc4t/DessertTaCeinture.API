@@ -23,15 +23,15 @@ namespace DessertTaCeinture.API.Tests.Controllers
         [TestMethod]
         public void GetShouldReturnNotFoundIfNotExists()
         {
-            var result = controller.Get(132550);
+            var result = controller.Get("test@test.com");
 
             Assert.IsTrue(result.GetType().Equals(typeof(NotFoundResult)));
         }
 
         [TestMethod]
-        public void GetShouldBadRequestIfNegativeId()
+        public void GetShouldBadRequestIfNullId()
         {
-            var result = controller.Get(-3);
+            var result = controller.Get(null);
 
             Assert.IsTrue(result.GetType().Equals(typeof(BadRequestResult)));
         }
@@ -47,7 +47,7 @@ namespace DessertTaCeinture.API.Tests.Controllers
         [TestMethod]
         public void GetShouldReturnOkNegociatedContentResult()
         {
-            var result = controller.Get(3);
+            var result = controller.Get("test@test.com");
 
             Assert.IsTrue(result.GetType().Equals(typeof(OkNegotiatedContentResult<UserModel>)));
         }
@@ -77,7 +77,6 @@ namespace DessertTaCeinture.API.Tests.Controllers
                 model.LastName = "Boeme";
                 model.FirstName = "Joey";
                 model.Gender = true;
-                model.BirthDate = Convert.ToDateTime("04-12-1992");
                 model.Email = "joey.boeme@live.fr";
                 model.Password = "test";
 

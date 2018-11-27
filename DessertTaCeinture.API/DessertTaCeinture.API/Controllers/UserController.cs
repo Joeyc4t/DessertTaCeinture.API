@@ -27,9 +27,9 @@ namespace DessertTaCeinture.API.Controllers
         }
 
         [HttpGet]
-        public IHttpActionResult Get(int id)
+        public IHttpActionResult Get(string id)
         {
-            if (id <= 0)
+            if (string.IsNullOrEmpty(id))
                 return BadRequest();
 
             if (!EntityExists(id))
@@ -37,7 +37,7 @@ namespace DessertTaCeinture.API.Controllers
 
             try
             {
-                return Ok(AutoMapper<UserEntity, UserModel>.AutoMap(UOW.UserRepository.GetEntity(id)));
+                return Ok(AutoMapper<UserEntity, UserModel>.AutoMap(UOW.UserRepository.GetEntities().FirstOrDefault(u => u.Email == id)));
             }
             catch (Exception ex)
             {
@@ -63,11 +63,6 @@ namespace DessertTaCeinture.API.Controllers
             try
             {
                 UserEntity entity = AutoMapper<UserModel, UserEntity>.AutoMap(model);
-                    entity.Salt = BCrypt.Net.BCrypt.GenerateSalt();
-                    entity.Password = BCrypt.Net.BCrypt.HashPassword(model.Password, entity.Salt);
-                    entity.InscriptionDate = DateTime.Now;
-                    entity.IsActive = true;
-                    entity.RoleId = 1;
 
                 UOW.UserRepository.AddEntity(entity);
 
@@ -122,9 +117,16 @@ namespace DessertTaCeinture.API.Controllers
             }
         }
 
+        #region Private methods
+        private bool EntityExists(string email)
+        {
+            return UOW.UserRepository.GetEntities().Where(e => e.Email == email).Count() > 0;
+        }
+
         private bool EntityExists(int id)
         {
             return UOW.UserRepository.GetEntities().Where(e => e.Id == id).Count() > 0;
         }
+        #endregion
     }
 }
