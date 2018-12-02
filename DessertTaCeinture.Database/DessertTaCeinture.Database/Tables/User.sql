@@ -24,6 +24,12 @@ CREATE TRIGGER [dbo].[Trigger_User_InsteadOfDelete]
     INSTEAD OF DELETE
     AS
     BEGIN
+        DECLARE @UserId INT
+
+		SELECT @UserId = DELETED.Id
+		FROM DELETED
+
         UPDATE [User]
 		SET IsActive = 0
+		WHERE Id = @UserId
     END
