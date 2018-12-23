@@ -1,5 +1,4 @@
 ﻿using System;
-using DessertTaCeinture.DAL.Enumerations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
@@ -13,7 +12,7 @@ namespace DessertTaCeinture.DAL.Entities
         private int _RecipeId;
         private int _IngredientId;
         private int _Quantity;
-        private EUnits _Unit;
+        private string _Unit;
         #endregion
 
         #region Properties
@@ -66,7 +65,7 @@ namespace DessertTaCeinture.DAL.Entities
             }
         }
 
-        public EUnits Unit
+        public string Unit
         {
             get
             {

@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using Tools.Generic;
 
 namespace DessertTaCeinture.API.Controllers
 {
@@ -43,6 +44,20 @@ namespace DessertTaCeinture.API.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpGet]
+        [Route("api/Recipe/GetUserRecipes")]
+        public DataWrapper<RecipeModel> GetUserRecipes(int id)
+        {
+            DataWrapper<RecipeModel> wrapper = new DataWrapper<RecipeModel>();
+
+            foreach(RecipeModel model in Get().Where(r => r.CreatorId.Equals(id)))
+            {
+                wrapper.container.entities.Add(model);
+            }
+
+            return wrapper;
         }
 
         [HttpPost]
