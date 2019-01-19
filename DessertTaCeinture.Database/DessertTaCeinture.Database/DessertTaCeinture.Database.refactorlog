@@ -35,4 +35,11 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="LevelAccess" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="8bd55206-d1b3-4fec-9494-81605f30f171" ChangeDateTime="01/19/2019 14:04:59">
+    <Property Name="ElementName" Value="[dbo].[Recipe_Step].[Id]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Recipe_Step]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="RecipeId" />
+  </Operation>
 </Operations>

@@ -1,5 +1,4 @@
-﻿using System;
-using DessertTaCeinture.DAL.Entities;
+﻿using DessertTaCeinture.DAL.Entities;
 using DessertTaCeinture.DAL.Repositories;
 using Tools.Generic;
 
@@ -15,10 +14,13 @@ namespace DessertTaCeinture.DAL.UnitOfWork
         private IRepository<RateEntity> _RateRepository;
         private IRepository<RatingEntity> _RatingRepository;
         private IRepository<Recipe_IngredientsEntity> _Recipe_IngredientsRepository;
+        private IRepository<Recipe_StepEntity> _Recipe_StepRepository;
         private IRepository<RecipeEntity> _RecipeRepository;
         private IRepository<RoleEntity> _RoleRepository;
         private IRepository<ThemeEntity> _ThemeRepository;
         private IRepository<UserEntity> _UserRepository;
+        private IRepository<NewsEntity> _NewsRepository;
+        private IRepository<StepEntity> _StepRepository;
         #endregion
 
         #region Properties
@@ -85,6 +87,15 @@ namespace DessertTaCeinture.DAL.UnitOfWork
             }
         }
 
+        public IRepository<Recipe_StepEntity> Recipe_StepRepository
+        {
+            get
+            {
+                if (this._Recipe_StepRepository == null) { this._Recipe_StepRepository = new Recipe_StepRepository(); }
+                return this._Recipe_StepRepository;
+            }
+        }
+
         public IRepository<RecipeEntity> RecipeRepository
         {
             get
@@ -120,12 +131,29 @@ namespace DessertTaCeinture.DAL.UnitOfWork
                 return this._UserRepository;
             }
         }
+
+        public IRepository<NewsEntity> NewsRepository
+        {
+            get
+            {
+                if (this._NewsRepository == null) { this._NewsRepository = new NewsRepository(); }
+                return this._NewsRepository;
+            }
+        }
+
+        public IRepository<StepEntity> StepRepository
+        {
+            get
+            {
+                if (this._StepRepository == null) { this._StepRepository = new StepRepository(); }
+                return this._StepRepository;
+            }
+        }
         #endregion
 
         #region Methods
         public void Dispose()
         {
-            throw new NotImplementedException();
         }
         #endregion
     }

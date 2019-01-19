@@ -13,9 +13,12 @@ namespace DessertTaCeinture.DAL.UnitOfWork
         IRepository<RateEntity> RateRepository { get; }   
         IRepository<RatingEntity> RatingRepository { get; }   
         IRepository<Recipe_IngredientsEntity> Recipe_IngredientsRepository { get; }
+        IRepository<Recipe_StepEntity> Recipe_StepRepository { get; }
         IRepository<RecipeEntity> RecipeRepository { get; }   
         IRepository<RoleEntity> RoleRepository { get; }   
         IRepository<ThemeEntity> ThemeRepository { get; }   
         IRepository<UserEntity> UserRepository { get; }   
+        IRepository<NewsEntity> NewsRepository { get; }   
+        IRepository<StepEntity> StepRepository { get; }   
     }
 }

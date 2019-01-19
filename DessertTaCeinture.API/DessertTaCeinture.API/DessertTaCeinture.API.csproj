@@ -189,13 +189,16 @@
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\IngredientController.cs" />
+    <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\OriginController.cs" />
     <Compile Include="Controllers\PictureController.cs" />
     <Compile Include="Controllers\RateController.cs" />
     <Compile Include="Controllers\RatingController.cs" />
     <Compile Include="Controllers\RecipeController.cs" />
     <Compile Include="Controllers\Recipe_IngredientsController.cs" />
+    <Compile Include="Controllers\Recipe_StepController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\StepController.cs" />
     <Compile Include="Controllers\ThemeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -203,13 +206,16 @@
     </Compile>
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\IngredientModel.cs" />
+    <Compile Include="Models\NewsModel.cs" />
     <Compile Include="Models\OriginModel.cs" />
     <Compile Include="Models\PictureModel.cs" />
     <Compile Include="Models\RateModel.cs" />
     <Compile Include="Models\RatingModel.cs" />
     <Compile Include="Models\RecipeModel.cs" />
     <Compile Include="Models\Recipe_IngredientsModel.cs" />
+    <Compile Include="Models\Recipe_StepModel.cs" />
     <Compile Include="Models\RoleModel.cs" />
+    <Compile Include="Models\StepModel.cs" />
     <Compile Include="Models\ThemeModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
