@@ -12,7 +12,10 @@ namespace Tools.Generic
     {
         private readonly TEntity _item;
 
-        public QueryBuilder(TEntity item) { _item = item; }
+        public QueryBuilder(TEntity item)
+        {
+            _item = item;
+        }
 
         #region Insert
         public Query GetInsertCommand()
@@ -41,7 +44,8 @@ namespace Tools.Generic
             PropertyInfo[] properties = _item.GetType().GetProperties();
             //On récupère la primary key de la table
             string keyField = GetKeyFieldName();
-            // Pour chaque propriété de la table, on ajoute dans sbField le nom de colonne et dans sbValues @ + nom de colonne
+            // Pour chaque propriété de la table, on ajoute dans sbField le nom de colonne et dans
+            // sbValues @ + nom de colonne
             foreach (PropertyInfo propertyInfo in properties)
             {
                 if (keyField == propertyInfo.Name && IsKeyFieldIdentity()) continue;
@@ -58,10 +62,11 @@ namespace Tools.Generic
             string Values = sbValues.ToString();
             Values = Values.Remove(Values.Length - 1);
             //On construit le 2ème morceau de la query
-            query.Text = $"({Fields}) values ({Values})";
+            query.Text = $"({Fields}) OUTPUT INSERTED.ID values ({Values})";
             return query;
         }
-        #endregion
+
+        #endregion Insert
 
         #region Update
         public Query GetUpdateCommand()
@@ -74,6 +79,11 @@ namespace Tools.Generic
             return query;
         }
 
+        private string GetFormattedUpdateField(PropertyInfo propertyInfo)
+        {
+            var result = $"{propertyInfo.Name}=@{propertyInfo.Name},";
+            return result;
+        }
         //Construction de la query avec les paramètres
         private Query GetUpdateFieldList()
         {
@@ -102,12 +112,7 @@ namespace Tools.Generic
             return query;
         }
 
-        private string GetFormattedUpdateField(PropertyInfo propertyInfo)
-        {
-            var result = $"{propertyInfo.Name}=@{propertyInfo.Name},";
-            return result;
-        }
-        #endregion
+        #endregion Update
 
         #region Delete
         public Query GetDeleteCommand(int entitykey)
@@ -121,9 +126,18 @@ namespace Tools.Generic
             query.ParametersValues.Add(new KeyValuePair<string, object>($"@{keyFieldName}", entitykey));
             return query;
         }
-        #endregion
+
+        #endregion Delete
 
         #region Select
+        public string GetSelectAllCommand()
+        {
+            var table = GetTableName();
+            if (String.IsNullOrEmpty(table))
+                throw new Exception("No Table attribute was found.");
+            var query = $"SELECT * FROM {table}";
+            return query;
+        }
         public Query GetSelectOneCommand(int entitykey)
         {
             var query = new Query();
@@ -136,15 +150,7 @@ namespace Tools.Generic
             return query;
         }
 
-        public string GetSelectAllCommand()
-        {
-            var table = GetTableName();
-            if (String.IsNullOrEmpty(table))
-                throw new Exception("No Table attribute was found.");
-            var query = $"SELECT * FROM {table}";
-            return query;
-        }
-        #endregion
+        #endregion Select
 
         #region Helper methods
         protected string GetTableName()
@@ -152,18 +158,6 @@ namespace Tools.Generic
             var tableAttr = Attribute.GetCustomAttribute(typeof(TEntity), typeof(TableAttribute));
 
             return tableAttr != null ? (tableAttr as TableAttribute).Name : String.Empty;
-        }
-
-        private string GetKeyFieldName()
-        {
-            var result = GetKeyField();
-            return result.Name;
-        }
-
-        private string GetKeyFieldValue()
-        {
-            var result = GetKeyField();
-            return result.GetValue(_item).ToString();
         }
 
         private PropertyInfo GetKeyField()
@@ -175,11 +169,22 @@ namespace Tools.Generic
             }
             throw new Exception("Key on a property could not be found");
         }
+        private string GetKeyFieldName()
+        {
+            var result = GetKeyField();
+            return result.Name;
+        }
 
+        private string GetKeyFieldValue()
+        {
+            var result = GetKeyField();
+            return result.GetValue(_item).ToString();
+        }
         private bool IsKeyFieldIdentity()
         {
-            return (_item.GetType().GetProperties().FirstOrDefault().CustomAttributes.LastOrDefault().AttributeType.Name == "KeyAttribute");
+            return (_item.GetType().GetProperties().FirstOrDefault(p => p.Name == "Id").CustomAttributes.LastOrDefault().AttributeType.Name == "KeyAttribute");
         }
-        #endregion
+
+        #endregion Helper methods
     }
 }

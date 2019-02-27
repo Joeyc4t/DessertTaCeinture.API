@@ -18,72 +18,40 @@ namespace Tools.Generic
         }
 
         #region Public
-        public bool AddEntity(TEntity entity)
+        public int AddEntity(TEntity entity)
         {
             var builder = new QueryBuilder<TEntity>(entity);
             return (ExecuteCommand(builder.GetInsertCommand()));
         }
 
-        public bool UpdateEntity(TEntity entity)
-        {
-            var builder = new QueryBuilder<TEntity>(entity);
-            return (ExecuteCommand(builder.GetUpdateCommand()));
-        }
-
-
         public bool DeleteEntity(int entitykey)
         {
             TEntity instance = Activator.CreateInstance<TEntity>();
             var builder = new QueryBuilder<TEntity>(instance);
-            return (ExecuteCommand(builder.GetDeleteCommand(entitykey)));
+            return (ExecuteCommand(builder.GetDeleteCommand(entitykey)) > 0);
         }
-
-
-        public TEntity GetEntity(int entitykey)
-        {
-            TEntity instance = Activator.CreateInstance<TEntity>();
-            var builder = new QueryBuilder<TEntity>(instance);
-            return GetOne(builder.GetSelectOneCommand(entitykey));
-        }
-
         public IEnumerable<TEntity> GetEntities()
         {
             TEntity instance = Activator.CreateInstance<TEntity>();
             var builder = new QueryBuilder<TEntity>(instance);
             return GetAll(builder.GetSelectAllCommand()).AsQueryable();
         }
-        #endregion
-
-        #region Private
-        private TEntity GetOne(Query query)
+        public TEntity GetEntity(int entitykey)
         {
-            TEntity entity = null;
-            IDbCommand cmd = _connection.CreateCommand();
-            cmd.CommandType = CommandType.Text;
-            cmd.CommandText = query.Text;
-            foreach (var queryParam in query.ParametersValues)
-            {
-                var param = cmd.CreateParameter();
-                param.Value = queryParam.Value;
-                param.ParameterName = queryParam.Key;
-                cmd.Parameters.Add(param);
-            }
-            _connection.Open();
-            try
-            {
-                var reader = cmd.ExecuteReader();
-                reader.Read();
-                entity = PopulateEntity(reader);
-                reader.Close();
-            }
-            finally
-            {
-                _connection.Close();
-            }
-            return entity;
+            TEntity instance = Activator.CreateInstance<TEntity>();
+            var builder = new QueryBuilder<TEntity>(instance);
+            return GetOne(builder.GetSelectOneCommand(entitykey));
+        }
+        public bool UpdateEntity(TEntity entity)
+        {
+            var builder = new QueryBuilder<TEntity>(entity);
+            return (ExecuteCommand(builder.GetUpdateCommand()) > 0);
         }
 
-        protected bool ExecuteCommand(Query query)
+        #endregion Public
+
+        #region Private
+        protected int ExecuteCommand(Query query)
         {
             int result = -1;
             //Représente une instruction SQL qui est exécutée alors qu’elle est connectée à une source de données
@@ -101,21 +69,14 @@ namespace Tools.Generic
             _connection.Open();
             try
             {
-                result = cmd.ExecuteNonQuery();
+                result = Convert.ToInt32(cmd.ExecuteScalar());
             }
             finally
             {
                 _connection.Close();
             }
-            return result > 0;
+            return result;
         }
-
-        //Transformation directe de datareader en entity
-        private TEntity PopulateEntity(IDataReader reader)
-        {
-            return (Mapper<TEntity>.AutoMap(reader));
-        }
-
         private IEnumerable<TEntity> GetAll(string command)
         {
             var list = new List<TEntity>();
@@ -143,6 +104,39 @@ namespace Tools.Generic
             }
             return list;
         }
-        #endregion
+        private TEntity GetOne(Query query)
+        {
+            TEntity entity = null;
+            IDbCommand cmd = _connection.CreateCommand();
+            cmd.CommandType = CommandType.Text;
+            cmd.CommandText = query.Text;
+            foreach (var queryParam in query.ParametersValues)
+            {
+                var param = cmd.CreateParameter();
+                param.Value = queryParam.Value;
+                param.ParameterName = queryParam.Key;
+                cmd.Parameters.Add(param);
+            }
+            _connection.Open();
+            try
+            {
+                var reader = cmd.ExecuteReader();
+                reader.Read();
+                entity = PopulateEntity(reader);
+                reader.Close();
+            }
+            finally
+            {
+                _connection.Close();
+            }
+            return entity;
+        }
+        //Transformation directe de datareader en entity
+        private TEntity PopulateEntity(IDataReader reader)
+        {
+            return (Mapper<TEntity>.AutoMap(reader));
+        }
+
+        #endregion Private
     }
 }

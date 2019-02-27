@@ -1,50 +1,35 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
 
 namespace DessertTaCeinture.API.Models
 {
     public class RecipeModel
     {
         #region Fields
-        private int _Id;
-        private string _Title;
-        private DateTime _CreationDate;
-        private int _OriginId;
-        private int _CreatorId;
         private int _CategoryId;
-        private int _PictureId;
-        private int _ThemeId;
+        private DateTime _CreationDate;
+        private int _CreatorId;
+        private int _Id;
         private bool _IsPublic;
-        #endregion
+        private int _OriginId;
+        private string _Picture;
+        private int _ThemeId;
+        private string _Title;
+
+        #endregion Fields
 
         #region Properties
-        [Key]
-        public int Id
-        {
-            get
-            {
-                return _Id;
-            }
-            set
-            {
-                _Id = value;
-            }
-        }
 
         [Required]
-        [StringLength(75)]
-        public string Title
+        public int CategoryId
         {
             get
             {
-                return _Title;
+                return _CategoryId;
             }
             set
             {
-                _Title = value;
+                _CategoryId = value;
             }
         }
 
@@ -58,18 +43,6 @@ namespace DessertTaCeinture.API.Models
             set
             {
                 _CreationDate = value;
-            }
-        }
-                
-        public int OriginId
-        {
-            get
-            {
-                return _OriginId;
-            }
-            set
-            {
-                _OriginId = value;
             }
         }
 
@@ -86,29 +59,54 @@ namespace DessertTaCeinture.API.Models
             }
         }
 
-        [Required]
-        public int CategoryId
+        [Key]
+        public int Id
         {
             get
             {
-                return _CategoryId;
+                return _Id;
             }
             set
             {
-                _CategoryId = value;
+                _Id = value;
             }
         }
 
         [Required]
-        public int PictureId
+        public bool IsPublic
         {
             get
             {
-                return _PictureId;
+                return _IsPublic;
             }
             set
             {
-                _PictureId = value;
+                _IsPublic = value;
+            }
+        }
+
+        public int OriginId
+        {
+            get
+            {
+                return _OriginId;
+            }
+            set
+            {
+                _OriginId = value;
+            }
+        }
+
+        [Required]
+        public string Picture
+        {
+            get
+            {
+                return _Picture;
+            }
+            set
+            {
+                _Picture = value;
             }
         }
 
@@ -126,17 +124,19 @@ namespace DessertTaCeinture.API.Models
         }
 
         [Required]
-        public bool IsPublic
+        [StringLength(75)]
+        public string Title
         {
             get
             {
-                return _IsPublic;
+                return _Title;
             }
             set
             {
-                _IsPublic = value;
+                _Title = value;
             }
         }
-        #endregion
+
+        #endregion Properties
     }
 }

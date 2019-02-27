@@ -14,6 +14,24 @@ namespace DessertTaCeinture.API.Controllers
     {
         private readonly UnitOfWork UOW = new UnitOfWork();
 
+        [HttpDelete]
+        public IHttpActionResult Delete(int id)
+        {
+            if (id <= 0)
+                return BadRequest();
+
+            if (!EntityExists(id))
+                return NotFound();
+
+            try
+            {
+                return Ok(UOW.RecipeRepository.DeleteEntity(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
         [HttpGet]
         public IQueryable<RecipeModel> Get()
         {
@@ -51,8 +69,10 @@ namespace DessertTaCeinture.API.Controllers
         public DataWrapper<RecipeModel> GetUserRecipes(int id)
         {
             DataWrapper<RecipeModel> wrapper = new DataWrapper<RecipeModel>();
+            wrapper.container = new DataContainer<RecipeModel>();
+            wrapper.container.entities = new List<RecipeModel>();
 
-            foreach(RecipeModel model in Get().Where(r => r.CreatorId.Equals(id)))
+            foreach (RecipeModel model in Get().Where(r => r.CreatorId.Equals(id)))
             {
                 wrapper.container.entities.Add(model);
             }
@@ -71,9 +91,8 @@ namespace DessertTaCeinture.API.Controllers
 
             try
             {
-                UOW.RecipeRepository.AddEntity(AutoMapper<RecipeModel, RecipeEntity>.AutoMap(model));
-
-                return Ok(model);
+                int inserted = UOW.RecipeRepository.AddEntity(AutoMapper<RecipeModel, RecipeEntity>.AutoMap(model));
+                return Ok(inserted);
             }
             catch (Exception ex)
             {
@@ -101,26 +120,6 @@ namespace DessertTaCeinture.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        [HttpDelete]
-        public IHttpActionResult Delete(int id)
-        {
-            if (id <= 0)
-                return BadRequest();
-
-            if (!EntityExists(id))
-                return NotFound();
-
-            try
-            {
-                return Ok(UOW.RecipeRepository.DeleteEntity(id));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
         private bool EntityExists(int id)
         {
             return UOW.RecipeRepository.GetEntities().Where(e => e.Id == id).Count() > 0;

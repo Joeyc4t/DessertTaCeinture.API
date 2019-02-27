@@ -42,4 +42,25 @@
     <Property Name="ParentElementType" Value="SqlTable" />
     <Property Name="NewName" Value="RecipeId" />
   </Operation>
+  <Operation Name="Rename Refactor" Key="379d6707-c259-4cb2-a1b3-442f9d16ef72" ChangeDateTime="02/22/2019 10:13:08">
+    <Property Name="ElementName" Value="[dbo].[Recipe].[PictureId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Recipe]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Picture" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="29b31a28-ddd9-4857-bdad-93e05808c2f2" ChangeDateTime="02/22/2019 10:42:42">
+    <Property Name="ElementName" Value="[dbo].[Recipe_Ingredients].[RecipeId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Recipe_Ingredients]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="RecipeGUID" />
+  </Operation>
+  <Operation Name="Rename Refactor" Key="c4a98075-df23-4acb-a46f-20128b97e54d" ChangeDateTime="02/22/2019 11:03:58">
+    <Property Name="ElementName" Value="[dbo].[Recipe].[PictureId]" />
+    <Property Name="ElementType" Value="SqlSimpleColumn" />
+    <Property Name="ParentElementName" Value="[dbo].[Recipe]" />
+    <Property Name="ParentElementType" Value="SqlTable" />
+    <Property Name="NewName" Value="Picture" />
+  </Operation>
 </Operations>
