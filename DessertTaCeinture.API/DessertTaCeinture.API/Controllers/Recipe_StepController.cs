@@ -1,7 +1,6 @@
 ﻿using DessertTaCeinture.API.Models;
 using DessertTaCeinture.API.Tools;
 using DessertTaCeinture.DAL.Entities;
-using DessertTaCeinture.DAL.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +8,38 @@ using System.Web.Http;
 
 namespace DessertTaCeinture.API.Controllers
 {
-    public class Recipe_StepController : ApiController
+    /// <summary>
+    /// Recipe_Step controller.
+    /// </summary>
+    public class Recipe_StepController : BaseController<Recipe_StepModel, int>
     {
-        private readonly UnitOfWork UOW = new UnitOfWork();
+        /// <summary>
+        /// Delete link between recipe and step by ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public override IHttpActionResult Delete(int id)
+        {
+            if (id <= 0)
+                return BadRequest();
 
-        [HttpGet]
-        public IQueryable<Recipe_StepModel> Get()
+            if (!EntityExists(id))
+                return NotFound();
+
+            try
+            {
+                return Ok(UOW.Recipe_StepRepository.DeleteEntity(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        /// <summary>
+        /// Select all links between recipes and steps.
+        /// </summary>
+        /// <returns></returns>
+        public override IQueryable<Recipe_StepModel> Get()
         {
             List<Recipe_StepModel> Models = new List<Recipe_StepModel>();
 
@@ -25,9 +50,12 @@ namespace DessertTaCeinture.API.Controllers
 
             return Models.AsQueryable();
         }
-
-        [HttpGet]
-        public IHttpActionResult Get(int id)
+        /// <summary>
+        /// Select link between recipe and step by ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public override IHttpActionResult Get(int id)
         {
             if (id <= 0)
                 return BadRequest();
@@ -44,9 +72,12 @@ namespace DessertTaCeinture.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        [HttpPost]
-        public IHttpActionResult Post(Recipe_StepModel model)
+        /// <summary>
+        /// Insert new link between recipe and step.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public override IHttpActionResult Post(Recipe_StepModel model)
         {
             if (model == null)
                 return BadRequest("Invalid model");
@@ -65,9 +96,13 @@ namespace DessertTaCeinture.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        [HttpPut]
-        public IHttpActionResult Put(int id, Recipe_StepModel model)
+        /// <summary>
+        /// Update link between recipe and step by ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public override IHttpActionResult Put(int id, Recipe_StepModel model)
         {
             if (model == null || !id.Equals(model.ConcatId))
                 return BadRequest("Invalid model");
@@ -86,27 +121,12 @@ namespace DessertTaCeinture.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        [HttpDelete]
-        public IHttpActionResult Delete(int id)
-        {
-            if (id <= 0)
-                return BadRequest();
-
-            if (!EntityExists(id))
-                return NotFound();
-
-            try
-            {
-                return Ok(UOW.Recipe_StepRepository.DeleteEntity(id));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        private bool EntityExists(int id)
+        /// <summary>
+        /// Check if entity exists.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        protected override bool EntityExists(int id)
         {
             return UOW.Recipe_StepRepository.GetEntities().Where(e => e.ConcatId == id).Count() > 0;
         }

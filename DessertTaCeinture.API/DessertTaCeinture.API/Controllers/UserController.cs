@@ -1,7 +1,6 @@
 ﻿using DessertTaCeinture.API.Models;
 using DessertTaCeinture.API.Tools;
 using DessertTaCeinture.DAL.Entities;
-using DessertTaCeinture.DAL.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +8,38 @@ using System.Web.Http;
 
 namespace DessertTaCeinture.API.Controllers
 {
-    public class UserController : ApiController
+    /// <summary>
+    /// User controller.
+    /// </summary>
+    public class UserController : BaseController<UserModel, string>
     {
-        private readonly UnitOfWork UOW = new UnitOfWork();
+        /// <summary>
+        /// Delete user by ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public override IHttpActionResult Delete(int id)
+        {
+            if (id <= 0)
+                return BadRequest();
 
-        [HttpGet]
-        public IQueryable<UserModel> Get()
+            if (!EntityExists(id))
+                return NotFound();
+
+            try
+            {
+                return Ok(UOW.UserRepository.DeleteEntity(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        /// <summary>
+        /// Select all users.
+        /// </summary>
+        /// <returns></returns>
+        public override IQueryable<UserModel> Get()
         {
             List<UserModel> Models = new List<UserModel>();
 
@@ -25,9 +50,12 @@ namespace DessertTaCeinture.API.Controllers
 
             return Models.AsQueryable();
         }
-
-        [HttpGet]
-        public IHttpActionResult Get(string id)
+        /// <summary>
+        /// Select user by EMAIL.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public override IHttpActionResult Get(string id)
         {
             if (string.IsNullOrEmpty(id))
                 return BadRequest();
@@ -44,9 +72,12 @@ namespace DessertTaCeinture.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        [HttpPost]
-        public IHttpActionResult Post(UserModel model)
+        /// <summary>
+        /// Insert new user.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public override IHttpActionResult Post(UserModel model)
         {
             if (model == null)
                 return BadRequest("Invalid model");
@@ -73,9 +104,13 @@ namespace DessertTaCeinture.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        [HttpPut]
-        public IHttpActionResult Put(int id, UserModel model)
+        /// <summary>
+        /// Update user by ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public override IHttpActionResult Put(int id, UserModel model)
         {
             if (model == null || !id.Equals(model.Id))
                 return BadRequest("Invalid model");
@@ -97,36 +132,19 @@ namespace DessertTaCeinture.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        [HttpDelete]
-        public IHttpActionResult Delete(int id)
+        /// <summary>
+        /// Check if entity exists.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        protected override bool EntityExists(int id)
         {
-            if (id <= 0)
-                return BadRequest();
-
-            if (!EntityExists(id))
-                return NotFound();
-
-            try
-            {
-                return Ok(UOW.UserRepository.DeleteEntity(id));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            return UOW.UserRepository.GetEntities().Where(e => e.Id == id).Count() > 0;
         }
 
-        #region Private methods
         private bool EntityExists(string email)
         {
             return UOW.UserRepository.GetEntities().Where(e => e.Email == email).Count() > 0;
         }
-
-        private bool EntityExists(int id)
-        {
-            return UOW.UserRepository.GetEntities().Where(e => e.Id == id).Count() > 0;
-        }
-        #endregion
     }
 }
