@@ -1,21 +1,25 @@
 ﻿using DessertTaCeinture.API.Models;
 using DessertTaCeinture.API.Tools;
 using DessertTaCeinture.DAL.Entities;
-using DessertTaCeinture.DAL.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Description;
 using Tools.Generic;
 
 namespace DessertTaCeinture.API.Controllers
 {
-    public class RecipeController : ApiController
+    /// <summary>
+    /// Recipe controller.
+    /// </summary>
+    public class RecipeController : BaseController<RecipeModel, int>
     {
-        private readonly UnitOfWork UOW = new UnitOfWork();
-
-        [HttpDelete]
-        public IHttpActionResult Delete(int id)
+        /// <summary>
+        /// Delete recipe by ID.
+        /// </summary>
+        /// <param name="id">ID of the recipe.</param>
+        public override IHttpActionResult Delete(int id)
         {
             if (id <= 0)
                 return BadRequest();
@@ -32,8 +36,10 @@ namespace DessertTaCeinture.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpGet]
-        public IQueryable<RecipeModel> Get()
+        /// <summary>
+        /// Select all recipes.
+        /// </summary>
+        public override IQueryable<RecipeModel> Get()
         {
             List<RecipeModel> Models = new List<RecipeModel>();
 
@@ -44,9 +50,11 @@ namespace DessertTaCeinture.API.Controllers
 
             return Models.AsQueryable();
         }
-
-        [HttpGet]
-        public IHttpActionResult Get(int id)
+        /// <summary>
+        /// Select recipe by ID.
+        /// </summary>
+        /// <param name="id">ID of the recipe.</param>
+        public override IHttpActionResult Get(int id)
         {
             if (id <= 0)
                 return BadRequest();
@@ -63,9 +71,13 @@ namespace DessertTaCeinture.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
+        /// <summary>
+        /// Select all recipes by user ID.
+        /// </summary>
+        /// <param name="id">ID of the user.</param>
         [HttpGet]
         [Route("api/Recipe/GetUserRecipes")]
+        [ApiExplorerSettings(IgnoreApi = true)]
         public DataWrapper<RecipeModel> GetUserRecipes(int id)
         {
             DataWrapper<RecipeModel> wrapper = new DataWrapper<RecipeModel>();
@@ -79,9 +91,11 @@ namespace DessertTaCeinture.API.Controllers
 
             return wrapper;
         }
-
-        [HttpPost]
-        public IHttpActionResult Post(RecipeModel model)
+        /// <summary>
+        /// Insert new recipe.
+        /// </summary>
+        /// <param name="model">The recipe model.</param>
+        public override IHttpActionResult Post(RecipeModel model)
         {
             if (model == null)
                 return BadRequest("Invalid model");
@@ -99,9 +113,12 @@ namespace DessertTaCeinture.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        [HttpPut]
-        public IHttpActionResult Put(int id, RecipeModel model)
+        /// <summary>
+        /// Update recipe by ID.
+        /// </summary>
+        /// <param name="id">ID of the recipe.</param>
+        /// <param name="model">The recipe model.</param>
+        public override IHttpActionResult Put(int id, RecipeModel model)
         {
             if (model == null || !id.Equals(model.Id))
                 return BadRequest("Invalid model");
@@ -120,7 +137,12 @@ namespace DessertTaCeinture.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        private bool EntityExists(int id)
+        /// <summary>
+        /// Check if entity exists
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        protected override bool EntityExists(int id)
         {
             return UOW.RecipeRepository.GetEntities().Where(e => e.Id == id).Count() > 0;
         }

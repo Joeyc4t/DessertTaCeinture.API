@@ -1,5 +1,5 @@
-// Uncomment the following to provide samples for PageResult<T>. Must also add the Microsoft.AspNet.WebApi.OData
-// package to your project.
+// Uncomment the following to provide samples for PageResult<T>. Must also add the
+// Microsoft.AspNet.WebApi.OData package to your project.
 ////#define Handle_PageResultOfT
 
 using System;
@@ -12,6 +12,7 @@ using System.Net.Http.Headers;
 using System.Reflection;
 using System.Web;
 using System.Web.Http;
+
 #if Handle_PageResultOfT
 using System.Web.Http.OData;
 #endif
@@ -19,9 +20,9 @@ using System.Web.Http.OData;
 namespace DessertTaCeinture.API.Areas.HelpPage
 {
     /// <summary>
-    /// Use this class to customize the Help Page.
-    /// For example you can set a custom <see cref="System.Web.Http.Description.IDocumentationProvider"/> to supply the documentation
-    /// or you can provide the samples for the requests/responses.
+    /// Use this class to customize the Help Page. For example you can set a custom <see
+    /// cref="System.Web.Http.Description.IDocumentationProvider"/> to supply the documentation or
+    /// you can provide the samples for the requests/responses.
     /// </summary>
     public static class HelpPageConfig
     {
@@ -34,10 +35,10 @@ namespace DessertTaCeinture.API.Areas.HelpPage
         public static void Register(HttpConfiguration config)
         {
             //// Uncomment the following to use the documentation from XML documentation file.
-            //config.SetDocumentationProvider(new XmlDocumentationProvider(HttpContext.Current.Server.MapPath("~/App_Data/XmlDocument.xml")));
+            config.SetDocumentationProvider(new XmlDocumentationProvider(HttpContext.Current.Server.MapPath("~/App_Data/XmlDocument.xml")));
 
             //// Uncomment the following to use "sample string" as the sample for all actions that have string as the body parameter or return type.
-            //// Also, the string arrays will be used for IEnumerable<string>. The sample objects will be serialized into different media type 
+            //// Also, the string arrays will be used for IEnumerable<string>. The sample objects will be serialized into different media type
             //// formats by the available formatters.
             //config.SetSampleObjects(new Dictionary<Type, object>
             //{
@@ -45,16 +46,19 @@ namespace DessertTaCeinture.API.Areas.HelpPage
             //    {typeof(IEnumerable<string>), new string[]{"sample 1", "sample 2"}}
             //});
 
-            // Extend the following to provide factories for types not handled automatically (those lacking parameterless
-            // constructors) or for which you prefer to use non-default property values. Line below provides a fallback
-            // since automatic handling will fail and GeneratePageResult handles only a single type.
+            // Extend the following to provide factories for types not handled automatically (those
+            // lacking parameterless
+            // constructors) or for which you prefer to use non-default property values. Line below
+            //               provides a fallback since automatic handling will fail and
+            // GeneratePageResult handles only a single type.
 #if Handle_PageResultOfT
             config.GetHelpPageSampleGenerator().SampleObjectFactories.Add(GeneratePageResult);
 #endif
 
-            // Extend the following to use a preset object directly as the sample for all actions that support a media
-            // type, regardless of the body parameter or return type. The lines below avoid display of binary content.
-            // The BsonMediaTypeFormatter (if available) is not used to serialize the TextSample object.
+            // Extend the following to use a preset object directly as the sample for all actions
+            // that support a media type, regardless of the body parameter or return type. The lines
+            // below avoid display of binary content. The BsonMediaTypeFormatter (if available) is
+            // not used to serialize the TextSample object.
             config.SetSampleForMediaType(
                 new TextSample("Binary JSON content. See http://bsonspec.org for details."),
                 new MediaTypeHeaderValue("application/bson"));

@@ -1,7 +1,6 @@
 ﻿using DessertTaCeinture.API.Models;
 using DessertTaCeinture.API.Tools;
 using DessertTaCeinture.DAL.Entities;
-using DessertTaCeinture.DAL.UnitOfWork;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,12 +8,38 @@ using System.Web.Http;
 
 namespace DessertTaCeinture.API.Controllers
 {
-    public class RatingController : ApiController
+    /// <summary>
+    /// Rating controller.
+    /// </summary>
+    public class RatingController : BaseController<RatingModel, int>
     {
-        private readonly UnitOfWork UOW = new UnitOfWork();
+        /// <summary>
+        /// Delete rating by ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public override IHttpActionResult Delete(int id)
+        {
+            if (id <= 0)
+                return BadRequest();
 
-        [HttpGet]
-        public IQueryable<RatingModel> Get()
+            if (!EntityExists(id))
+                return NotFound();
+
+            try
+            {
+                return Ok(UOW.RatingRepository.DeleteEntity(id));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+        /// <summary>
+        /// Select all ratings.
+        /// </summary>
+        /// <returns></returns>
+        public override IQueryable<RatingModel> Get()
         {
             List<RatingModel> Models = new List<RatingModel>();
 
@@ -25,9 +50,12 @@ namespace DessertTaCeinture.API.Controllers
 
             return Models.AsQueryable();
         }
-
-        [HttpGet]
-        public IHttpActionResult Get(int id)
+        /// <summary>
+        /// Select rating by ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public override IHttpActionResult Get(int id)
         {
             if (id <= 0)
                 return BadRequest();
@@ -44,9 +72,12 @@ namespace DessertTaCeinture.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        [HttpPost]
-        public IHttpActionResult Post(RatingModel model)
+        /// <summary>
+        /// Insert new rating.
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public override IHttpActionResult Post(RatingModel model)
         {
             if (model == null)
                 return BadRequest("Invalid model");
@@ -65,9 +96,13 @@ namespace DessertTaCeinture.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        [HttpPut]
-        public IHttpActionResult Put(int id, RatingModel model)
+        /// <summary>
+        /// Update rating by ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="model"></param>
+        /// <returns></returns>
+        public override IHttpActionResult Put(int id, RatingModel model)
         {
             if (model == null || !id.Equals(model.ConcatId))
                 return BadRequest("Invalid model");
@@ -86,27 +121,12 @@ namespace DessertTaCeinture.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
-
-        [HttpDelete]
-        public IHttpActionResult Delete(int id)
-        {
-            if (id <= 0)
-                return BadRequest();
-
-            if (!EntityExists(id))
-                return NotFound();
-
-            try
-            {
-                return Ok(UOW.RatingRepository.DeleteEntity(id));
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        private bool EntityExists(int id)
+        /// <summary>
+        /// Check if entity exists.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        protected override bool EntityExists(int id)
         {
             return UOW.RatingRepository.GetEntities().Where(e => e.ConcatId == id).Count() > 0;
         }
