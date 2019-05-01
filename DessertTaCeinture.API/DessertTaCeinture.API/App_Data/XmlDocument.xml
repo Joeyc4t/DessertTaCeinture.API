@@ -905,53 +905,6 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="T:DessertTaCeinture.API.Controllers.Recipe_StepController">
-            <summary>
-            Recipe_Step controller.
-            </summary>
-        </member>
-        <member name="M:DessertTaCeinture.API.Controllers.Recipe_StepController.Delete(System.Int32)">
-            <summary>
-            Delete link between recipe and step by ID.
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DessertTaCeinture.API.Controllers.Recipe_StepController.Get">
-            <summary>
-            Select all links between recipes and steps.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:DessertTaCeinture.API.Controllers.Recipe_StepController.Get(System.Int32)">
-            <summary>
-            Select link between recipe and step by ID.
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DessertTaCeinture.API.Controllers.Recipe_StepController.Post(DessertTaCeinture.API.Models.Recipe_StepModel)">
-            <summary>
-            Insert new link between recipe and step.
-            </summary>
-            <param name="model"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DessertTaCeinture.API.Controllers.Recipe_StepController.Put(System.Int32,DessertTaCeinture.API.Models.Recipe_StepModel)">
-            <summary>
-            Update link between recipe and step by ID.
-            </summary>
-            <param name="id"></param>
-            <param name="model"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DessertTaCeinture.API.Controllers.Recipe_StepController.EntityExists(System.Int32)">
-            <summary>
-            Check if entity exists.
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
         <member name="T:DessertTaCeinture.API.Controllers.RoleController">
             <summary>
             Role controller.

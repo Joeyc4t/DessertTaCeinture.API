@@ -197,7 +197,6 @@
     <Compile Include="Controllers\RatingController.cs" />
     <Compile Include="Controllers\RecipeController.cs" />
     <Compile Include="Controllers\Recipe_IngredientsController.cs" />
-    <Compile Include="Controllers\Recipe_StepController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\StepController.cs" />
     <Compile Include="Controllers\ThemeController.cs" />
@@ -214,7 +213,6 @@
     <Compile Include="Models\RatingModel.cs" />
     <Compile Include="Models\RecipeModel.cs" />
     <Compile Include="Models\Recipe_IngredientsModel.cs" />
-    <Compile Include="Models\Recipe_StepModel.cs" />
     <Compile Include="Models\RoleModel.cs" />
     <Compile Include="Models\StepModel.cs" />
     <Compile Include="Models\ThemeModel.cs" />

@@ -72,7 +72,6 @@
     <Build Include="Tables\Theme.sql" />
     <Build Include="Tables\News.sql" />
     <Build Include="Tables\Step.sql" />
-    <Build Include="Tables\Recipe_Step.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="DessertTaCeinture.Database.refactorlog" />

@@ -8,6 +8,7 @@ namespace DessertTaCeinture.API.Models
         private int _Id;
         private int _StepOrder;
         private string _Description;
+        private int _RecipeId;
         #endregion
 
         #region Properties
@@ -45,6 +46,18 @@ namespace DessertTaCeinture.API.Models
             set
             {
                 _Description = value;
+            }
+        }
+
+        public int RecipeId
+        {
+            get
+            {
+                return _RecipeId;
+            }
+            set
+            {
+                _RecipeId = value;
             }
         }
         #endregion

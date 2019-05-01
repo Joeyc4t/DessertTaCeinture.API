@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DessertTaCeinture.DAL.Entities
 {
@@ -15,6 +10,7 @@ namespace DessertTaCeinture.DAL.Entities
         private int _Id;
         private int _StepOrder;
         private string _Description;
+        private int _RecipeId;
         #endregion
 
         #region Properties
@@ -52,6 +48,18 @@ namespace DessertTaCeinture.DAL.Entities
             set
             {
                 _Description = value;
+            }
+        }
+
+        public int RecipeId
+        {
+            get
+            {
+                return _RecipeId;
+            }
+            set
+            {
+                _RecipeId = value;
             }
         }
         #endregion
