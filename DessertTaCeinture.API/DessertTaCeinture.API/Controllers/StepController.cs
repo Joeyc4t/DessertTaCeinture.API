@@ -1,10 +1,12 @@
 ﻿using DessertTaCeinture.API.Models;
 using DessertTaCeinture.API.Tools;
 using DessertTaCeinture.DAL.Entities;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace DessertTaCeinture.API.Controllers
 {
@@ -49,6 +51,18 @@ namespace DessertTaCeinture.API.Controllers
             }
 
             return Models.AsQueryable();
+        }
+        /// <summary>
+        /// Get steps by recipe ID ordered by step order
+        /// </summary>
+        /// <param name="recipeId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("api/Step/GetSteps")]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public IQueryable<StepModel> GetSteps(int recipeId)
+        {
+            return Get().Where(e => e.RecipeId == recipeId).OrderBy(e => e.StepOrder);
         }
         /// <summary>
         /// Get step by ID.

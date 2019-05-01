@@ -11,7 +11,6 @@
     [IsPublic] BIT NOT NULL, 
     CONSTRAINT [PK_Recipe] PRIMARY KEY ([Id]), 
     CONSTRAINT [FK_Recipe_ToUser] FOREIGN KEY ([CreatorId]) REFERENCES [User]([Id]), 
-    CONSTRAINT [FK_Recipe_ToCategory] FOREIGN KEY ([CategoryId]) REFERENCES [Category]([Id]), 
-    CONSTRAINT [FK_Recipe_ToOrigin] FOREIGN KEY ([OriginId]) REFERENCES [Origin]([Id]), 
+    CONSTRAINT [FK_Recipe_ToCategory] FOREIGN KEY ([CategoryId]) REFERENCES [Category]([Id]),
     CONSTRAINT [FK_Recipe_ToTheme] FOREIGN KEY ([ThemeId]) REFERENCES [Theme]([Id]) 
 )

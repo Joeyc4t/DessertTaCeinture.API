@@ -11,7 +11,7 @@ namespace DessertTaCeinture.API.Models
         private int _CreatorId;
         private int _Id;
         private bool _IsPublic;
-        private int _OriginId;
+        private int? _OriginId;
         private string _Picture;
         private int _ThemeId;
         private string _Title;
@@ -85,7 +85,7 @@ namespace DessertTaCeinture.API.Models
             }
         }
 
-        public int OriginId
+        public int? OriginId
         {
             get
             {

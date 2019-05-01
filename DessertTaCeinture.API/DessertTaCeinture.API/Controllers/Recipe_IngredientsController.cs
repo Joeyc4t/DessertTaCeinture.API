@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace DessertTaCeinture.API.Controllers
 {
@@ -73,6 +74,19 @@ namespace DessertTaCeinture.API.Controllers
             }
         }
         /// <summary>
+        /// Get link by ingredient ID and recipe ID.
+        /// </summary>
+        /// <param name="ingredientId"></param>
+        /// <param name="recipeId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("api/Recipe_Ingredients/GetLink")]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public Recipe_IngredientsModel GetLink(int ingredientId, int recipeId)
+        {
+            return Get().Where(e => e.IngredientId == ingredientId && e.RecipeId == recipeId).FirstOrDefault();
+        }
+        /// <summary>
         /// Insert new link between recipe and ingredient.
         /// </summary>
         /// <param name="model"></param>
@@ -119,6 +133,15 @@ namespace DessertTaCeinture.API.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+        /// <summary>
+        /// Get ingredient links by recipe ID.
+        /// </summary>
+        /// <param name="recipeId"></param>
+        /// <returns></returns>
+        public IQueryable<Recipe_IngredientsModel> GetRecipeIngredientLinks(int recipeId)
+        {
+            return Get().Where(l => l.RecipeId == recipeId);
         }
         /// <summary>
         /// Check if entity exists.

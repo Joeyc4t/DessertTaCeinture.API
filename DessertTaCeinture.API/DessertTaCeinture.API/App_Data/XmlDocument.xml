@@ -553,6 +553,13 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:DessertTaCeinture.API.Controllers.IngredientController.GetRecipeIngredients(System.Int32)">
+            <summary>
+            Get ingredients by recipe ID.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="M:DessertTaCeinture.API.Controllers.IngredientController.Post(DessertTaCeinture.API.Models.IngredientModel)">
             <summary>
             Insert new ingredient.
@@ -883,6 +890,14 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="M:DessertTaCeinture.API.Controllers.Recipe_IngredientsController.GetLink(System.Int32,System.Int32)">
+            <summary>
+            Get link by ingredient ID and recipe ID.
+            </summary>
+            <param name="ingredientId"></param>
+            <param name="recipeId"></param>
+            <returns></returns>
+        </member>
         <member name="M:DessertTaCeinture.API.Controllers.Recipe_IngredientsController.Post(DessertTaCeinture.API.Models.Recipe_IngredientsModel)">
             <summary>
             Insert new link between recipe and ingredient.
@@ -896,6 +911,13 @@
             </summary>
             <param name="id"></param>
             <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DessertTaCeinture.API.Controllers.Recipe_IngredientsController.GetRecipeIngredientLinks(System.Int32)">
+            <summary>
+            Get ingredient links by recipe ID.
+            </summary>
+            <param name="recipeId"></param>
             <returns></returns>
         </member>
         <member name="M:DessertTaCeinture.API.Controllers.Recipe_IngredientsController.EntityExists(System.Int32)">
@@ -968,6 +990,13 @@
             <summary>
             Get all steps.
             </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DessertTaCeinture.API.Controllers.StepController.GetSteps(System.Int32)">
+            <summary>
+            Get steps by recipe ID ordered by step order
+            </summary>
+            <param name="recipeId"></param>
             <returns></returns>
         </member>
         <member name="M:DessertTaCeinture.API.Controllers.StepController.Get(System.Int32)">
@@ -1084,6 +1113,13 @@
             </summary>
             <param name="id"></param>
             <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DessertTaCeinture.API.Controllers.UserController.GetUser(System.Int32)">
+            <summary>
+            Get user by ID.
+            </summary>
+            <param name="id"></param>
             <returns></returns>
         </member>
         <member name="M:DessertTaCeinture.API.Controllers.UserController.EntityExists(System.Int32)">

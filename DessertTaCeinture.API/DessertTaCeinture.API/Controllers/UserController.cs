@@ -1,10 +1,12 @@
 ﻿using DessertTaCeinture.API.Models;
 using DessertTaCeinture.API.Tools;
 using DessertTaCeinture.DAL.Entities;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace DessertTaCeinture.API.Controllers
 {
@@ -131,6 +133,18 @@ namespace DessertTaCeinture.API.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+        /// <summary>
+        /// Get user by ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("api/User/GetUser")]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public UserModel GetUser(int id)
+        {
+            return Get().Where(u => u.Id == id).FirstOrDefault();
         }
         /// <summary>
         /// Check if entity exists.

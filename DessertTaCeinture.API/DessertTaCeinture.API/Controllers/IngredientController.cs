@@ -5,6 +5,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Description;
+using Tools.Generic;
 
 namespace DessertTaCeinture.API.Controllers
 {
@@ -71,6 +73,29 @@ namespace DessertTaCeinture.API.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+        /// <summary>
+        /// Get ingredients by recipe ID.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("api/Ingredient/GetRecipeIngredients")]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public DataWrapper<IngredientModel> GetRecipeIngredients(int id)
+        {
+            DataWrapper<IngredientModel> wrapper = new DataWrapper<IngredientModel>();
+            wrapper.container = new DataContainer<IngredientModel>();
+            wrapper.container.entities = new List<IngredientModel>();
+
+            Recipe_IngredientsController linksController = new Recipe_IngredientsController();
+
+            foreach (Recipe_IngredientsModel model in linksController.GetRecipeIngredientLinks(id))
+            {
+                wrapper.container.entities.Add(Get().Where(e => e.Id == model.IngredientId).FirstOrDefault());
+            }
+
+            return wrapper;
         }
         /// <summary>
         /// Insert new ingredient.
