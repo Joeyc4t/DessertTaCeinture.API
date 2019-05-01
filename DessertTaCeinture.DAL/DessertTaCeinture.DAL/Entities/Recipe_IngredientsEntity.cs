@@ -1,5 +1,4 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
 namespace DessertTaCeinture.DAL.Entities
@@ -8,7 +7,7 @@ namespace DessertTaCeinture.DAL.Entities
     public class Recipe_IngredientsEntity
     {
         #region Fields
-        private int _ConcatId;
+        private int _Id;
         private int _RecipeId;
         private int _IngredientId;
         private int _Quantity;
@@ -17,15 +16,15 @@ namespace DessertTaCeinture.DAL.Entities
 
         #region Properties
         [Key]
-        public int ConcatId
+        public int Id
         {
             get
             {
-                return _ConcatId;
+                return _Id;
             }
             set
             {
-                _ConcatId = Convert.ToInt32((RecipeId.ToString()) + (IngredientId.ToString()));
+                _Id = value;
             }
         }
 

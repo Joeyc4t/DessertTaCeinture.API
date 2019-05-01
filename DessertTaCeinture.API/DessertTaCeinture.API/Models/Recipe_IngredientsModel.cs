@@ -1,12 +1,11 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace DessertTaCeinture.API.Models
 {
     public class Recipe_IngredientsModel
     {
         #region Fields
-        private int _ConcatId;
+        private int _Id;
         private int _RecipeId;
         private int _IngredientId;
         private int _Quantity;
@@ -15,15 +14,15 @@ namespace DessertTaCeinture.API.Models
 
         #region Properties
         [Key]
-        public int ConcatId
+        public int Id
         {
             get
             {
-                return _ConcatId;
+                return _Id;
             }
             set
             {
-                _ConcatId = Convert.ToInt32((RecipeId.ToString()) + (IngredientId.ToString()));
+                _Id = value;
             }
         }
 

@@ -87,9 +87,8 @@ namespace DessertTaCeinture.API.Controllers
 
             try
             {
-                UOW.Recipe_IngredientsRepository.AddEntity(AutoMapper<Recipe_IngredientsModel, Recipe_IngredientsEntity>.AutoMap(model));
-
-                return Ok(model);
+                int inserted = UOW.Recipe_IngredientsRepository.AddEntity(AutoMapper<Recipe_IngredientsModel, Recipe_IngredientsEntity>.AutoMap(model));
+                return Ok(inserted);
             }
             catch (Exception ex)
             {
@@ -104,7 +103,7 @@ namespace DessertTaCeinture.API.Controllers
         /// <returns></returns>
         public override IHttpActionResult Put(int id, Recipe_IngredientsModel model)
         {
-            if (model == null || !id.Equals(model.ConcatId))
+            if (model == null || !id.Equals(model.Id))
                 return BadRequest("Invalid model");
 
             if (!ModelState.IsValid)
@@ -128,7 +127,7 @@ namespace DessertTaCeinture.API.Controllers
         /// <returns></returns>
         protected override bool EntityExists(int id)
         {
-            return UOW.Recipe_IngredientsRepository.GetEntities().Where(e => e.ConcatId == id).Count() > 0;
+            return UOW.Recipe_IngredientsRepository.GetEntities().Where(e => e.Id == id).Count() > 0;
         }
     }
 }

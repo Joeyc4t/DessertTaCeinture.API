@@ -106,7 +106,7 @@ namespace DessertTaCeinture.API.Controllers
             try
             {
                 int inserted = UOW.RecipeRepository.AddEntity(AutoMapper<RecipeModel, RecipeEntity>.AutoMap(model));
-                return Ok(inserted);
+                return new CreatedContentActionResult(Request, Url.Link("DefaultApi", new { controller = "Post", inserted = inserted }));
             }
             catch (Exception ex)
             {
