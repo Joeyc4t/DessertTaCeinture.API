@@ -182,7 +182,7 @@ namespace Tools.Generic
         }
         private bool IsKeyFieldIdentity()
         {
-            return (_item.GetType().GetProperties().FirstOrDefault(p => p.Name == "Id").CustomAttributes.LastOrDefault().AttributeType.Name == "KeyAttribute");
+            return (_item.GetType().GetProperties().FirstOrDefault(e => Attribute.IsDefined(e, typeof(KeyAttribute))).CustomAttributes.LastOrDefault().AttributeType.Name == "KeyAttribute");
         }
 
         #endregion Helper methods

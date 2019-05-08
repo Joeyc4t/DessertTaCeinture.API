@@ -839,6 +839,12 @@
             </summary>
             <param name="id">ID of the recipe.</param>
         </member>
+        <member name="M:DessertTaCeinture.API.Controllers.RecipeController.GetLastPublished">
+            <summary>
+            Get 9 last public recipes
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:DessertTaCeinture.API.Controllers.RecipeController.GetUserRecipes(System.Int32)">
             <summary>
             Select all recipes by user ID.

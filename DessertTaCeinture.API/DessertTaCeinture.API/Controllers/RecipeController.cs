@@ -72,6 +72,17 @@ namespace DessertTaCeinture.API.Controllers
             }
         }
         /// <summary>
+        /// Get 9 last public recipes
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("api/Recipe/GetLastPublished")]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public IQueryable<RecipeModel> GetLastPublished()
+        {
+            return Get().Where(e => e.IsPublic == true).OrderByDescending(e => e.CreationDate).Take(9);
+        }
+        /// <summary>
         /// Select all recipes by user ID.
         /// </summary>
         /// <param name="id">ID of the user.</param>
