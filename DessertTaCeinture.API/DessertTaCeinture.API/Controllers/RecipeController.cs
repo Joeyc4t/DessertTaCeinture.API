@@ -103,6 +103,22 @@ namespace DessertTaCeinture.API.Controllers
             return wrapper;
         }
         /// <summary>
+        /// Get number of published recipes
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("api/Recipe/GetRecipeIndexes")]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public int[] GetRecipeIndexes()
+        {
+            List<int> indexes = new List<int>();
+            foreach (var item in Get().Where(x => x.IsPublic))
+            {
+                indexes.Add(item.Id);
+            }
+            return indexes.ToArray();
+        }        
+        /// <summary>
         /// Insert new recipe.
         /// </summary>
         /// <param name="model">The recipe model.</param>

@@ -851,6 +851,12 @@
             </summary>
             <param name="id">ID of the user.</param>
         </member>
+        <member name="M:DessertTaCeinture.API.Controllers.RecipeController.GetRecipeIndexes">
+            <summary>
+            Get number of published recipes
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:DessertTaCeinture.API.Controllers.RecipeController.Post(DessertTaCeinture.API.Models.RecipeModel)">
             <summary>
             Insert new recipe.
