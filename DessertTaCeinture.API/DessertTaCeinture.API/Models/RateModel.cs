@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace DessertTaCeinture.API.Models
 {
@@ -7,6 +8,10 @@ namespace DessertTaCeinture.API.Models
         #region Fields
         private int _Id;
         private int _RateOnFive;
+        private int _UserId;
+        private int _RecipeId;
+        private DateTime _Date;
+        private string _Commentary;
         #endregion
 
         #region Properties
@@ -23,8 +28,6 @@ namespace DessertTaCeinture.API.Models
             }
         }
 
-        [Required]
-        [Range(0, 5)]
         public int RateOnFive
         {
             get
@@ -34,6 +37,54 @@ namespace DessertTaCeinture.API.Models
             set
             {
                 _RateOnFive = value;
+            }
+        }
+
+        public int UserId
+        {
+            get
+            {
+                return _UserId;
+            }
+            set
+            {
+                _UserId = value;
+            }
+        }
+
+        public int RecipeId
+        {
+            get
+            {
+                return _RecipeId;
+            }
+            set
+            {
+                _RecipeId = value;
+            }
+        }
+
+        public DateTime Date
+        {
+            get
+            {
+                return _Date;
+            }
+            set
+            {
+                _Date = value;
+            }
+        }
+
+        public string Commentary
+        {
+            get
+            {
+                return _Commentary;
+            }
+            set
+            {
+                _Commentary = value;
             }
         }
         #endregion

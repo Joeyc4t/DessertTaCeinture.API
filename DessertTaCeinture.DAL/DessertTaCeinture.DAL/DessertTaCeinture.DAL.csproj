@@ -48,7 +48,6 @@
     <Compile Include="Entities\OriginEntity.cs" />
     <Compile Include="Entities\PictureEntity.cs" />
     <Compile Include="Entities\RateEntity.cs" />
-    <Compile Include="Entities\RatingEntity.cs" />
     <Compile Include="Entities\RecipeEntity.cs" />
     <Compile Include="Entities\Recipe_IngredientsEntity.cs" />
     <Compile Include="Entities\RoleEntity.cs" />
@@ -62,7 +61,6 @@
     <Compile Include="Repositories\OriginRepository.cs" />
     <Compile Include="Repositories\PictureRepository.cs" />
     <Compile Include="Repositories\RateRepository.cs" />
-    <Compile Include="Repositories\RatingRepository.cs" />
     <Compile Include="Repositories\RecipeRepository.cs" />
     <Compile Include="Repositories\Recipe_IngredientsRepository.cs" />
     <Compile Include="Repositories\RoleRepository.cs" />

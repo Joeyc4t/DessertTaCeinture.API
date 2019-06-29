@@ -66,7 +66,6 @@
     <Build Include="Tables\Ingredient.sql" />
     <Build Include="Tables\Recipe_Ingredients.sql" />
     <Build Include="Tables\Rate.sql" />
-    <Build Include="Tables\Rating.sql" />
     <Build Include="Tables\Origin.sql" />
     <Build Include="Tables\Role.sql" />
     <Build Include="Tables\Theme.sql" />

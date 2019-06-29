@@ -117,6 +117,17 @@ namespace DessertTaCeinture.API.Controllers
                 indexes.Add(item.Id);
             }
             return indexes.ToArray();
+        }
+        /// <summary>
+        /// Get public recipes
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("api/Recipe/GetPublicRecipes")]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public IQueryable<RecipeModel> GetPublicRecipes()
+        {
+            return Get().Where(r => r.IsPublic);
         }        
         /// <summary>
         /// Insert new recipe.

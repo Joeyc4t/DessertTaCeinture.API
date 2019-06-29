@@ -770,53 +770,6 @@
             <param name="id"></param>
             <returns></returns>
         </member>
-        <member name="T:DessertTaCeinture.API.Controllers.RatingController">
-            <summary>
-            Rating controller.
-            </summary>
-        </member>
-        <member name="M:DessertTaCeinture.API.Controllers.RatingController.Delete(System.Int32)">
-            <summary>
-            Delete rating by ID.
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DessertTaCeinture.API.Controllers.RatingController.Get">
-            <summary>
-            Select all ratings.
-            </summary>
-            <returns></returns>
-        </member>
-        <member name="M:DessertTaCeinture.API.Controllers.RatingController.Get(System.Int32)">
-            <summary>
-            Select rating by ID.
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DessertTaCeinture.API.Controllers.RatingController.Post(DessertTaCeinture.API.Models.RatingModel)">
-            <summary>
-            Insert new rating.
-            </summary>
-            <param name="model"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DessertTaCeinture.API.Controllers.RatingController.Put(System.Int32,DessertTaCeinture.API.Models.RatingModel)">
-            <summary>
-            Update rating by ID.
-            </summary>
-            <param name="id"></param>
-            <param name="model"></param>
-            <returns></returns>
-        </member>
-        <member name="M:DessertTaCeinture.API.Controllers.RatingController.EntityExists(System.Int32)">
-            <summary>
-            Check if entity exists.
-            </summary>
-            <param name="id"></param>
-            <returns></returns>
-        </member>
         <member name="T:DessertTaCeinture.API.Controllers.RecipeController">
             <summary>
             Recipe controller.
@@ -854,6 +807,12 @@
         <member name="M:DessertTaCeinture.API.Controllers.RecipeController.GetRecipeIndexes">
             <summary>
             Get number of published recipes
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DessertTaCeinture.API.Controllers.RecipeController.GetPublicRecipes">
+            <summary>
+            Get public recipes
             </summary>
             <returns></returns>
         </member>

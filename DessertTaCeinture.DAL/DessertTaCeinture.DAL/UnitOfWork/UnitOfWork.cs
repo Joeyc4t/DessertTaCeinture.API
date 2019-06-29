@@ -12,7 +12,6 @@ namespace DessertTaCeinture.DAL.UnitOfWork
         private IRepository<OriginEntity> _OriginRepository;
         private IRepository<PictureEntity> _PictureRepository;
         private IRepository<RateEntity> _RateRepository;
-        private IRepository<RatingEntity> _RatingRepository;
         private IRepository<Recipe_IngredientsEntity> _Recipe_IngredientsRepository;
         private IRepository<RecipeEntity> _RecipeRepository;
         private IRepository<RoleEntity> _RoleRepository;
@@ -65,15 +64,6 @@ namespace DessertTaCeinture.DAL.UnitOfWork
             {
                 if (this._RateRepository == null) { this._RateRepository = new RateRepository(); }
                 return this._RateRepository;
-            }
-        }
-
-        public IRepository<RatingEntity> RatingRepository
-        {
-            get
-            {
-                if (this._RatingRepository == null) { this._RatingRepository = new RatingRepository(); }
-                return this._RatingRepository;
             }
         }
 
