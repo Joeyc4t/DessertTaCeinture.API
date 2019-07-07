@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace DessertTaCeinture.API.Controllers
 {
@@ -120,6 +121,37 @@ namespace DessertTaCeinture.API.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+        /// <summary>
+        /// Returns Top recipes by average.
+        /// </summary>
+        [HttpGet]
+        [Route("api/Rate/GetTopRecipes")]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public IQueryable<RecipeModel> GetTopRecipes()
+        {
+            List<RecipeModel> models = new List<RecipeModel>();
+            RecipeController controller = new RecipeController();
+
+            var ratedItems = from r in Get().Take(20)
+                             group r by r.RecipeId into g
+                             select new { RecipeId = g.Key, Average = (g.Sum(x => x.RateOnFive)/g.Count()) };
+
+            Dictionary<int, int> dico = ratedItems.OrderByDescending(r => r.Average).ToDictionary(g => g.RecipeId, g => g.Average);
+
+            foreach(KeyValuePair<int, int> kvp in dico)
+            {
+                models.Add(controller.SearchById(kvp.Key));
+            }
+
+            return models.AsQueryable();
+        }
+        [HttpGet]
+        [Route("api/Rate/RateExists")]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public bool RateExists(int userId, int recipeId)
+        {
+            return Get().Where(r => r.RecipeId == recipeId && r.UserId == userId) != null ;
         }
         /// <summary>
         /// Check if entity exists.

@@ -763,6 +763,11 @@
             <param name="model"></param>
             <returns></returns>
         </member>
+        <member name="M:DessertTaCeinture.API.Controllers.RateController.GetTopRecipes">
+            <summary>
+            Returns Top recipes by average.
+            </summary>
+        </member>
         <member name="M:DessertTaCeinture.API.Controllers.RateController.EntityExists(System.Int32)">
             <summary>
             Check if entity exists.

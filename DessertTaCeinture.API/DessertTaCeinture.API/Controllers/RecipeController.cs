@@ -71,6 +71,17 @@ namespace DessertTaCeinture.API.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        public RecipeModel SearchById(int id)
+        {
+            try
+            {
+                return AutoMapper<RecipeEntity, RecipeModel>.AutoMap(UOW.RecipeRepository.GetEntity(id));
+            }
+            catch
+            {
+                return null;
+            }
+        }
         /// <summary>
         /// Get 9 last public recipes
         /// </summary>
