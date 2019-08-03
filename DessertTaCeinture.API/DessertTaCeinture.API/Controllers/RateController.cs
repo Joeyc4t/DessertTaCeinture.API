@@ -151,7 +151,15 @@ namespace DessertTaCeinture.API.Controllers
         [ApiExplorerSettings(IgnoreApi = true)]
         public bool RateExists(int userId, int recipeId)
         {
-            return Get().Where(r => r.RecipeId == recipeId && r.UserId == userId) != null ;
+            var rate = Get().FirstOrDefault(r => r.RecipeId == recipeId && r.UserId == userId);
+            return rate != null ;
+        }
+        [HttpGet]
+        [Route("api/Rate/GetRateByIDs")]
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public RateModel GetRateByIDs(int userId, int recipeId)
+        {
+            return Get().FirstOrDefault(r => r.RecipeId == recipeId && r.UserId == userId) ;
         }
         /// <summary>
         /// Check if entity exists.
