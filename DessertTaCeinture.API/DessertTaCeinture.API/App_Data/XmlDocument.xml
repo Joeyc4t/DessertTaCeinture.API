@@ -582,6 +582,53 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="T:DessertTaCeinture.API.Controllers.LogsController">
+            <summary>
+            Logs controller.
+            </summary>
+        </member>
+        <member name="M:DessertTaCeinture.API.Controllers.LogsController.Delete(System.Int32)">
+            <summary>
+            Delete log by ID.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DessertTaCeinture.API.Controllers.LogsController.Get">
+            <summary>
+            Select all logs.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:DessertTaCeinture.API.Controllers.LogsController.Get(System.Int32)">
+            <summary>
+            Select log by ID.
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DessertTaCeinture.API.Controllers.LogsController.Post(DessertTaCeinture.API.Models.LogsModel)">
+            <summary>
+            Insert new log.
+            </summary>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DessertTaCeinture.API.Controllers.LogsController.Put(System.Int32,DessertTaCeinture.API.Models.LogsModel)">
+            <summary>
+            Update log by ID.
+            </summary>
+            <param name="id"></param>
+            <param name="model"></param>
+            <returns></returns>
+        </member>
+        <member name="M:DessertTaCeinture.API.Controllers.LogsController.EntityExists(System.Int32)">
+            <summary>
+            Check if entity exists
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
         <member name="T:DessertTaCeinture.API.Controllers.NewsController">
             <summary>
             News controller.

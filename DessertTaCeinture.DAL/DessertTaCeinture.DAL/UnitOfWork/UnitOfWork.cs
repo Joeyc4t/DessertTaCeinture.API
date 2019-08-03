@@ -19,6 +19,7 @@ namespace DessertTaCeinture.DAL.UnitOfWork
         private IRepository<UserEntity> _UserRepository;
         private IRepository<NewsEntity> _NewsRepository;
         private IRepository<StepEntity> _StepRepository;
+        private IRepository<LogsEntity> _LogsRepository;
         #endregion
 
         #region Properties
@@ -127,6 +128,15 @@ namespace DessertTaCeinture.DAL.UnitOfWork
             {
                 if (this._StepRepository == null) { this._StepRepository = new StepRepository(); }
                 return this._StepRepository;
+            }
+        }
+
+        public IRepository<LogsEntity> LogsRepository
+        {
+            get
+            {
+                if (this._LogsRepository == null) { this._LogsRepository = new LogsRepository(); }
+                return this._LogsRepository;
             }
         }
         #endregion

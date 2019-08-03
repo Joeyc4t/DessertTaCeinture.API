@@ -18,5 +18,6 @@ namespace DessertTaCeinture.DAL.UnitOfWork
         IRepository<UserEntity> UserRepository { get; }   
         IRepository<NewsEntity> NewsRepository { get; }   
         IRepository<StepEntity> StepRepository { get; }   
+        IRepository<LogsEntity> LogsRepository { get; }   
     }
 }
