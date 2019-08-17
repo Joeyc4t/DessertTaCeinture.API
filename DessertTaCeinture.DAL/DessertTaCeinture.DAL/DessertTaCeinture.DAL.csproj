@@ -66,6 +66,7 @@
     <Compile Include="Repositories\RecipeRepository.cs" />
     <Compile Include="Repositories\Recipe_IngredientsRepository.cs" />
     <Compile Include="Repositories\RoleRepository.cs" />
+    <Compile Include="Repositories\StatisticsRepository.cs" />
     <Compile Include="Repositories\StepRepository.cs" />
     <Compile Include="Repositories\ThemeRepository.cs" />
     <Compile Include="Repositories\UserRepository.cs" />

@@ -997,6 +997,11 @@
             <param name="id"></param>
             <returns></returns>
         </member>
+        <member name="T:DessertTaCeinture.API.Controllers.StatisticsController">
+            <summary>
+            Statistics controller.
+            </summary>
+        </member>
         <member name="T:DessertTaCeinture.API.Controllers.StepController">
             <summary>
             Step controller.
