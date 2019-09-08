@@ -91,7 +91,7 @@ namespace DessertTaCeinture.API.Controllers
         [ApiExplorerSettings(IgnoreApi = true)]
         public IQueryable<RecipeModel> GetLastPublished()
         {
-            return Get().Where(e => e.IsPublic == true).OrderByDescending(e => e.CreationDate).Take(9);
+            return Get().Where(e => e.IsPublic && e.IsValid.Value).OrderByDescending(e => e.CreationDate).Take(9);
         }
         /// <summary>
         /// Select all recipes by user ID.
@@ -123,7 +123,7 @@ namespace DessertTaCeinture.API.Controllers
         public int[] GetRecipeIndexes()
         {
             List<int> indexes = new List<int>();
-            foreach (var item in Get().Where(x => x.IsPublic))
+            foreach (var item in Get().Where(x => x.IsPublic && x.IsValid.HasValue && x.IsValid.Value))
             {
                 indexes.Add(item.Id);
             }

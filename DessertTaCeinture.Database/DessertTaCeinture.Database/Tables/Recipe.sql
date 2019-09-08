@@ -9,8 +9,9 @@
     [Picture] VARCHAR(255) NOT NULL, 
     [ThemeId] INT NOT NULL, 
     [IsPublic] BIT NOT NULL, 
+    [IsValid] BIT NULL, 
     CONSTRAINT [PK_Recipe] PRIMARY KEY ([Id]), 
     CONSTRAINT [FK_Recipe_ToUser] FOREIGN KEY ([CreatorId]) REFERENCES [User]([Id]), 
     CONSTRAINT [FK_Recipe_ToCategory] FOREIGN KEY ([CategoryId]) REFERENCES [Category]([Id]),
-    CONSTRAINT [FK_Recipe_ToTheme] FOREIGN KEY ([ThemeId]) REFERENCES [Theme]([Id]) 
+    CONSTRAINT [FK_Recipe_ToTheme] FOREIGN KEY ([ThemeId]) REFERENCES [Theme]([Id])
 )

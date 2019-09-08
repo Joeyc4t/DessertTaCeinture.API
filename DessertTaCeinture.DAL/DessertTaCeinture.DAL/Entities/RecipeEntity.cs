@@ -13,6 +13,7 @@ namespace DessertTaCeinture.DAL.Entities
         private int _CreatorId;
         private int _Id;
         private bool _IsPublic;
+        private bool? _IsValid;
         private int _OriginId;
         private string _Picture;
         private int _ThemeId;
@@ -80,6 +81,18 @@ namespace DessertTaCeinture.DAL.Entities
             set
             {
                 _IsPublic = value;
+            }
+        }
+
+        public bool? IsValid
+        {
+            get
+            {
+                return _IsValid;
+            }
+            set
+            {
+                _IsValid = value;
             }
         }
 

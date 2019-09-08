@@ -45,10 +45,11 @@ namespace DessertTaCeinture.DAL.Repositories
 
         public Dictionary<string, int> GetRecipesCount()
         {
-            string query = @"SELECT CASE IsPublic WHEN 1 THEN 'Publique'
-					                              WHEN 0 THEN 'Privée' END AS 'Key', COUNT(Id) AS 'Value'
+            string query = @"SELECT CASE IsValid WHEN 1 THEN 'Publiée'
+					                             WHEN 0 THEN 'Refusée' 
+                                                 ELSE 'En attente' END AS 'Key', COUNT(Id) AS 'Value'
                              FROM Recipe
-                             GROUP BY IsPublic";
+                             GROUP BY IsValid";
             return GenerateDictionary(query);
         }
 
