@@ -4,7 +4,7 @@
 	[RecipeId] INT NOT NULL, 
     [IngredientId] INT NOT NULL,  
     [Quantity] INT NOT NULL,  
-    [Unit] VARCHAR(50) NOT NULL,
+    [Unit] VARCHAR(50) NULL,
     CONSTRAINT [PK_Recipe_Ingredients] PRIMARY KEY ([Id]), 
     CONSTRAINT [FK_Recipe_Ingredients_ToRecipe] FOREIGN KEY ([RecipeId]) REFERENCES [Recipe]([Id]), 
     CONSTRAINT [FK_Recipe_Ingredients_ToIngredient] FOREIGN KEY ([IngredientId]) REFERENCES [Ingredient]([Id]), 

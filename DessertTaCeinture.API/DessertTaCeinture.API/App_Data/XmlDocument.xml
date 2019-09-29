@@ -850,11 +850,11 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:DessertTaCeinture.API.Controllers.RecipeController.GetUserRecipes(System.Int32)">
+        <member name="M:DessertTaCeinture.API.Controllers.RecipeController.GetPublicRecipes">
             <summary>
-            Select all recipes by user ID.
+            Get public recipes
             </summary>
-            <param name="id">ID of the user.</param>
+            <returns></returns>
         </member>
         <member name="M:DessertTaCeinture.API.Controllers.RecipeController.GetRecipeIndexes">
             <summary>
@@ -862,11 +862,11 @@
             </summary>
             <returns></returns>
         </member>
-        <member name="M:DessertTaCeinture.API.Controllers.RecipeController.GetPublicRecipes">
+        <member name="M:DessertTaCeinture.API.Controllers.RecipeController.GetUserRecipes(System.Int32)">
             <summary>
-            Get public recipes
+            Select all recipes by user ID.
             </summary>
-            <returns></returns>
+            <param name="id">ID of the user.</param>
         </member>
         <member name="M:DessertTaCeinture.API.Controllers.RecipeController.Post(DessertTaCeinture.API.Models.RecipeModel)">
             <summary>
